@@ -13,6 +13,7 @@ Admin = require('./Models/AdminSchema');
 Instructor = require('./Models/InstructorSchema');
 CorporateTrainee = require('./Models/CorporateTraineeSchema');
 Course = require('./Models/CourseSchema');
+Guest =require('./Models/GuestSchema');
 
 // configurations
 // Mongo DB
@@ -44,3 +45,6 @@ app.use('/admin', AdminRoute);
 const IntrucRoute = require("./Routes/Instructor");
 app.use('/instructor', IntrucRoute);
 
+//Routing to guest
+const GuestRoute = require("./Routes/Guest");
+app.use('/guest', GuestRoute);
