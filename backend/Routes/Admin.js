@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Admin = require('../Models/AdminSchema');
-const CorporateTrainee = require("../Models/CorporateTraineeShema");
+const CorporateTrainee = require("../Models/CorporateTraineeSchema");
 const Instructor = require('../Models/InstructorSchema');
 
 //helper methods

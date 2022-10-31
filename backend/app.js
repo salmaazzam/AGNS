@@ -11,7 +11,7 @@ const port = process.env.PORT || "8000";
 //Admin
 Admin = require('./Models/AdminSchema');
 Instructor = require('./Models/InstructorSchema');
-CorporateTrainee = require('./Models/CorporateTraineeShema');
+CorporateTrainee = require('./Models/CorporateTraineeSchema');
 Course = require('./Models/CourseSchema');
 
 // configurations
