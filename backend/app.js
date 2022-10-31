@@ -14,6 +14,7 @@ Instructor = require('./Models/InstructorSchema');
 CorporateTrainee = require('./Models/CorporateTraineeSchema');
 Course = require('./Models/CourseSchema');
 Guest =require('./Models/GuestSchema');
+IndividualTrainee =require('./Models/IndividualTraineeSchema');
 
 // configurations
 // Mongo DB
@@ -48,3 +49,7 @@ app.use('/instructor', IntrucRoute);
 //Routing to guest
 const GuestRoute = require("./Routes/Guest");
 app.use('/guest', GuestRoute);
+
+//Routing to individual trainee
+const IndividualTraineeRoute = require("./Routes/IndividualTrainee.js");
+app.use('/individualtrainee', IndividualTraineeRoute);
