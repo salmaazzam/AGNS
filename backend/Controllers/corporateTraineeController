@@ -1,0 +1,107 @@
+const CorporateTrainee = require("../Models/CorporateTraineeSchema");
+const mongoose = require('mongoose')
+
+// get all corporateTrainee
+const getCorporateTrainees = async (req, res) => {
+    const corporateTrainees = await CorporateTrainee.find({}).sort({createdAt: -1})
+  
+    res.status(200).json(corporateTrainees)}
+
+// get a single corporateTrainee
+const getCorporateTrainee = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({error: 'No such corporateTrainee'})
+    }
+  
+    const corporateTrainee = await CorporateTrainee.findById(id)
+  
+    if (!corporateTrainee) {
+      return res.status(404).json({error: 'No such corporateTrainee'})
+    }
+  
+    res.status(200).json(corporateTrainee)
+  }
+
+  // create a new corporateTrainee
+const createCorporateTrainee = async (req, res) => {
+    const {title, load, reps} = req.body
+  
+    // add to the database
+    try {
+      const corporateTrainee = await CorporateTrainee.create({ title, load, reps })
+      res.status(200).json(corporateTrainee)
+    } catch (error) {
+      res.status(400).json({ error: error.message })
+    }
+  }
+
+// delete a corporateTrainee
+const deleteCorporateTrainee = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({error: 'No such corporateTrainee'})
+    }
+  
+    const corporateTrainee = await CorporateTrainee.findOneAndDelete({_id: id})
+  
+    if(!corporateTrainee) {
+      return res.status(400).json({error: 'No such corporateTrainee'})
+    }
+  
+    res.status(200).json(corporateTrainee)
+  }
+
+  // update a corporateTrainee
+const updateCorporateTrainee = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({error: 'No such corporateTrainee'})
+    }
+  
+    const corporateTrainee = await CorporateTrainee.findOneAndUpdate({_id: id}, {
+      ...req.body
+    })
+  
+    if (!corporateTrainee) {
+      return res.status(400).json({error: 'No such corporateTrainee'})
+    }
+  
+    res.status(200).json(corporateTrainee)
+  }
+
+  module.exports = {
+    getCorporateTrainees,
+    getCorporateTrainee,
+    createCorporateTrainee,
+    deleteCorporateTrainee,
+    updateCorporateTrainee
+  } 
+
+/*async function AddCorpTraineehelper(corpTrainee){
+     
+    var { MongoClient }= require('mongodb');
+    var uri = "mongodb+srv://aclProj:ackProjPassword@cluster0.hjrz1bm.mongodb.net/ProjDB?retryWrites=true&w=majority";
+    var client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
+    await client.connect();
+    var list = await client.db('ProjDB').collection('corporatetrainees').find().toArray();
+    var flag = true;
+    for (let i = 0; i<list.length; i++)
+    {
+      if( list[i].username=== corpTrainee.username)
+      {
+        flag = false;
+        break;
+      }
+    }
+    if (flag === true)
+    {
+        await client.db('ProjDB').collection('corporatetrainees').insertOne(corpTrainee);
+    }
+    client.close();
+    return flag;
+}*/

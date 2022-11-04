@@ -1,0 +1,109 @@
+const Admin = require('../Models/AdminSchema');
+const mongoose = require('mongoose')
+
+// get all admins
+const getAdmins = async (req, res) => {
+    const admins = await Admin.find({}).sort({createdAt: -1})
+  
+    res.status(200).json(admins)}
+
+// get a single workout
+const getAdmin = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({error: 'No such admin'})
+    }
+  
+    const admin = await Workout.findById(id)
+  
+    if (!admin) {
+      return res.status(404).json({error: 'No such admin'})
+    }
+  
+    res.status(200).json(admin)
+  }
+
+  //create an admin
+  /*async function AddAdminHelper (Admininsert){
+    
+    var { MongoClient }= require('mongodb');
+    var uri = "mongodb+srv://aclProj:ackProjPassword@cluster0.hjrz1bm.mongodb.net/ProjDB?retryWrites=true&w=majority";
+    var client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
+    await client.connect();
+    var list = await client.db('ProjDB').collection('admins').find().toArray();
+    var flag = true;
+    for (let i = 0; i<list.length; i++)
+    {
+      if( list[i].username=== Admininsert.username)
+      {
+        flag = false;
+        break;
+      }
+    }
+    if (flag === true)
+    {
+        await client.db('ProjDB').collection('admins').insertOne(Admininsert);
+    }
+    client.close();
+    
+    return flag;
+}*/
+
+// create a new workout
+const createAdmin = async (req, res) => {
+    const {title, load, reps} = req.body
+  
+    // add to the database
+    try {
+      const admin = await Admin.create({ title, load, reps })
+      res.status(200).json(admin)
+    } catch (error) {
+      res.status(400).json({ error: error.message })
+    }
+  }
+
+// delete a workout
+const deleteAdmin = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({error: 'No such admin'})
+    }
+  
+    const admin = await Admin.findOneAndDelete({_id: id})
+  
+    if(!admin) {
+      return res.status(400).json({error: 'No such admin'})
+    }
+  
+    res.status(200).json(admin)
+  }
+
+  // update a workout
+const updateAdmin = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({error: 'No such admin'})
+    }
+  
+    const admin = await Admin.findOneAndUpdate({_id: id}, {
+      ...req.body
+    })
+  
+    if (!admin) {
+      return res.status(400).json({error: 'No such admin'})
+    }
+  
+    res.status(200).json(admin)
+  }
+
+  module.exports = {
+    getAdmins,
+    getAdmin,
+    createAdmin,
+    deleteAdmin,
+    updateAdmin
+  }

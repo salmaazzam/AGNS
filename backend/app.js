@@ -1,11 +1,9 @@
 //SETUP
 const express = require("express");
 const mongoose = require('mongoose');
-
-const MongoURI = 'mongodb+srv://aclProj:ackProjPassword@cluster0.hjrz1bm.mongodb.net/ProjDB?retryWrites=true&w=majority';
 var bodyParser = require('body-parser');
 const app = express();
-const port = process.env.PORT || "8000";
+const port = process.env.PORT;
 
 //importing 
 //Admin
@@ -18,7 +16,7 @@ Guest =require('./Models/GuestSchema');
 
 // configurations
 // Mongo DB
-mongoose.connect(MongoURI).then(()=>{
+mongoose.connect(process.env.MONGO_URL).then(()=>{
   console.log("MongoDB is now connected!")
 // Starting server
  app.listen(port, () => {

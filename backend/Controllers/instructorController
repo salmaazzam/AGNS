@@ -1,0 +1,107 @@
+const Instructor = require('../Models/InstructorSchema');
+const mongoose = require('mongoose')
+
+// get all instructors
+const getInstructors = async (req, res) => {
+    const instructors = await Instructor.find({}).sort({createdAt: -1})
+  
+    res.status(200).json(instructors)}
+
+// get a single instructor
+const getInstructor = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({error: 'No such instructor'})
+    }
+  
+    const instructor = await Instructor.findById(id)
+  
+    if (!instructor) {
+      return res.status(404).json({error: 'No such instructor'})
+    }
+  
+    res.status(200).json(instructor)
+  }
+
+  // create a new instructor
+const createInstructor = async (req, res) => {
+    const {title, load, reps} = req.body
+  
+    // add to the database
+    try {
+      const instructor = await Instructor.create({ title, load, reps })
+      res.status(200).json(instructor)
+    } catch (error) {
+      res.status(400).json({ error: error.message })
+    }
+  }
+
+// delete a instructor
+const deleteInstructor = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({error: 'No such instructor'})
+    }
+  
+    const instructor = await Instructor.findOneAndDelete({_id: id})
+  
+    if(!instructor) {
+      return res.status(400).json({error: 'No such instructor'})
+    }
+  
+    res.status(200).json(instructor)
+  }
+
+  // update a instructor
+const updateInstructor = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({error: 'No such instructor'})
+    }
+  
+    const instructor = await Instructor.findOneAndUpdate({_id: id}, {
+      ...req.body
+    })
+  
+    if (!instructor) {
+      return res.status(400).json({error: 'No such instructor'})
+    }
+  
+    res.status(200).json(instructor)
+  }
+
+  module.exports = {
+    getInstructors,
+    getInstructor,
+    createInstructor,
+    deleteInstructor,
+    updateInstructor
+  }
+/*async function AddInstructorHelper (InstructorInsert){
+    
+    var { MongoClient }= require('mongodb');
+    var uri = "mongodb+srv://aclProj:ackProjPassword@cluster0.hjrz1bm.mongodb.net/ProjDB?retryWrites=true&w=majority";
+    var client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+
+    await client.connect();
+    var list = await client.db('ProjDB').collection('instructors').find().toArray();
+    var flag = true;
+    for (let i = 0; i<list.length; i++)
+    {
+      if( list[i].username=== InstructorInsert.username)
+      {
+        flag = false;
+        break;
+      }
+    }
+    if (flag === true)
+    {
+        await client.db('ProjDB').collection('instructors').insertOne(InstructorInsert);
+    }
+    client.close();
+    return flag;
+}*/
+

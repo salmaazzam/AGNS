@@ -1,8 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const CorporateTrainee = require("../Models/CorporateTraineeSchema");
+const { getCorporateTrainees, getCorporateTrainee, createCorporateTrainee, deleteCorporateTrainee, updateCorporateTrainee} = require('../Controllers/CorporateTraineeController')
+  
+//const CorporateTrainee = require("../Models/CorporateTraineeSchema");
 
-async function changeCountry(Country){
+router.get("/", getCorporateTrainees) //("/", name of the function that gets the admins);
+
+router.get("/:id", getCorporateTrainee)
+
+router.post("/", createCorporateTrainee)
+
+router.delete("/:id", deleteCorporateTrainee)
+
+router.patch("/:id", updateCorporateTrainee)
+
+/*async function changeCountry(Country){
     var { MongoClient }= require('mongodb');
     var uri = "mongodb+srv://aclProj:ackProjPassword@cluster0.hjrz1bm.mongodb.net/ProjDB?retryWrites=true&w=majority";
     var client = new MongoClient(uri, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -26,7 +38,7 @@ router.get("/changeCountry", (req, res)=>{
 
 router.post("/changeCountry", (req, res)=>{
     
-});
+});*/
 
 
 module.exports = router;

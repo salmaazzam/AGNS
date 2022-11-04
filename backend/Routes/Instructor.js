@@ -1,9 +1,19 @@
-
 const express = require("express");
 const router = express.Router();
-const course = require('../Models/CourseSchema');
+const { getInstructors, getInstructor, createInstructor, deleteInstructor, updateInstructor} = require('../Controllers/instructorController')
+//const course = require('../Models/CourseSchema');
 
-async function AddCourseHelper(coursetoInsert){
+router.get("/", getInstructors) //("/", name of the function that gets the admins);
+
+router.get("/:id", getInstructor)
+
+router.post("/", createInstructor)
+
+router.delete("/:id", deleteInstructor)
+
+router.patch("/:id", updateInstructor)
+
+/*async function AddCourseHelper(coursetoInsert){
      
     var { MongoClient }= require('mongodb');
     var uri = "mongodb+srv://aclProj:ackProjPassword@cluster0.hjrz1bm.mongodb.net/ProjDB?retryWrites=true&w=majority";
@@ -50,7 +60,7 @@ router.post("/addCourse", (req, res)=>{
         else
         res.status(200).send(" Course exists");
     });
-      });
+      });*/
 
 module.exports = router;
 
