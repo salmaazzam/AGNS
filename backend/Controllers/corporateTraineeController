@@ -26,11 +26,26 @@ const getCorporateTrainee = async (req, res) => {
 
   // create a new corporateTrainee
 const createCorporateTrainee = async (req, res) => {
-    const {title, load, reps} = req.body
+    const {name,username, password} = req.body
+
+    let emptyFields = []
+
+  if (!name) {
+    emptyFields.push('title')
+  }
+  if (!username) {
+    emptyFields.push('username')
+  }
+  if (!password) {
+    emptyFields.push('password')
+  }
+  if (emptyFields.length > 0) {
+    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+  }
   
     // add to the database
     try {
-      const corporateTrainee = await CorporateTrainee.create({ title, load, reps })
+      const corporateTrainee = await CorporateTrainee.create({ name,username, password })
       res.status(200).json(corporateTrainee)
     } catch (error) {
       res.status(400).json({ error: error.message })
@@ -73,12 +88,25 @@ const updateCorporateTrainee = async (req, res) => {
     res.status(200).json(corporateTrainee)
   }
 
+  const setCountry = async (req, res) => {
+    const {id, country} = req.body;
+     const corporateTrainee = await corporateTrainee.findOneAndUpdate({_id: id}, { $set :{country: country}
+     })
+   
+     if (!corporateTrainee) {
+       return res.status(400).json({error: 'No such corporateTrainee'})
+     }
+   
+     res.status(200).json(instructor)
+   }
+
   module.exports = {
     getCorporateTrainees,
     getCorporateTrainee,
     createCorporateTrainee,
     deleteCorporateTrainee,
-    updateCorporateTrainee
+    updateCorporateTrainee,
+    setCountry
   } 
 
 /*async function AddCorpTraineehelper(corpTrainee){

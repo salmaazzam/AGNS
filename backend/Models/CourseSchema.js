@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Instructor = require('./InstructorSchema');
 const Schema = mongoose.Schema;
 
 const CourseSchema = new Schema({
@@ -17,7 +18,29 @@ const CourseSchema = new Schema({
   subtitles: {
     type: String,
     required : true
+  }, 
+  InstructorName: {
+  type: String,
+  required: true,
+  },
+  InstructorId: {
+    type: String,
+    required: true
+  },
+  totalHours:{
+    type: Number,
+    required: true
+
+  },
+  ratings:{
+    type: Number,
+    required:false
+  },
+  subject :{
+    type: String,
+    required : true
   }
+
 }, { timestamps: true });
 
 const Course = mongoose.model('Course', CourseSchema);

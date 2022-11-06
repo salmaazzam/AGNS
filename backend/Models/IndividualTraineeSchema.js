@@ -16,5 +16,5 @@ const IndividualTraineeSchema = new Schema({
   }
 }, { timestamps: true });
 
-const IndividualTraniee = mongoose.model('IndividualTraniee', IndividualTraineeSchema);
-module.exports = IndividualTraniee;
+const IndividualTrainee = mongoose.model('IndividualTraniee', IndividualTraineeSchema);
+module.exports = IndividualTrainee;

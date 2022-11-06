@@ -7,7 +7,7 @@ const getAdmins = async (req, res) => {
   
     res.status(200).json(admins)}
 
-// get a single workout
+// get a single admin
 const getAdmin = async (req, res) => {
     const { id } = req.params
   
@@ -15,13 +15,86 @@ const getAdmin = async (req, res) => {
       return res.status(404).json({error: 'No such admin'})
     }
   
-    const admin = await Workout.findById(id)
+    const admin = await Admin.findById(id)
   
     if (!admin) {
       return res.status(404).json({error: 'No such admin'})
     }
   
     res.status(200).json(admin)
+  }
+
+
+// create a new admin
+const createAdmin = async (req, res) => {
+    const {name,username, password} = req.body
+
+    let emptyFields = []
+
+  if (!name) {
+    emptyFields.push('title')
+  }
+  if (!username) {
+    emptyFields.push('username')
+  }
+  if (!password) {
+    emptyFields.push('password')
+  }
+  if (emptyFields.length > 0) {
+    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+  }
+  
+    // add to the database
+    try {
+      const admin = await Admin.create({ name,username, password })
+      res.status(200).json(admin)
+    } catch (error) {
+      res.status(400).json({ error: error.message })
+    }
+  }
+
+// delete an admin
+const deleteAdmin = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({error: 'No such admin'})
+    }
+  
+    const admin = await Admin.findOneAndDelete({_id: id})
+  
+    if(!admin) {
+      return res.status(400).json({error: 'No such admin'})
+    }
+  
+    res.status(200).json(admin)
+  }
+
+  // update an admin
+const updateAdmin = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({error: 'No such admin'})
+    }
+  
+    const admin = await Admin.findOneAndUpdate({_id: id}, {
+      ...req.body
+    })
+  
+    if (!admin) {
+      return res.status(400).json({error: 'No such admin'})
+    }
+  
+    res.status(200).json(admin)
+  }
+
+  module.exports = {
+    getAdmins,
+    getAdmin,
+    createAdmin,
+    deleteAdmin,
+    updateAdmin
   }
 
   //create an admin
@@ -50,60 +123,3 @@ const getAdmin = async (req, res) => {
     
     return flag;
 }*/
-
-// create a new workout
-const createAdmin = async (req, res) => {
-    const {title, load, reps} = req.body
-  
-    // add to the database
-    try {
-      const admin = await Admin.create({ title, load, reps })
-      res.status(200).json(admin)
-    } catch (error) {
-      res.status(400).json({ error: error.message })
-    }
-  }
-
-// delete a workout
-const deleteAdmin = async (req, res) => {
-    const { id } = req.params
-  
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({error: 'No such admin'})
-    }
-  
-    const admin = await Admin.findOneAndDelete({_id: id})
-  
-    if(!admin) {
-      return res.status(400).json({error: 'No such admin'})
-    }
-  
-    res.status(200).json(admin)
-  }
-
-  // update a workout
-const updateAdmin = async (req, res) => {
-    const { id } = req.params
-  
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({error: 'No such admin'})
-    }
-  
-    const admin = await Admin.findOneAndUpdate({_id: id}, {
-      ...req.body
-    })
-  
-    if (!admin) {
-      return res.status(400).json({error: 'No such admin'})
-    }
-  
-    res.status(200).json(admin)
-  }
-
-  module.exports = {
-    getAdmins,
-    getAdmin,
-    createAdmin,
-    deleteAdmin,
-    updateAdmin
-  }

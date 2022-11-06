@@ -1,8 +1,10 @@
 //SETUP
+require('dotenv').config()
 const express = require("express");
 const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 const app = express();
+const MONGO_URI="mongodb+srv://aclProj:ackProjPassword@cluster0.hjrz1bm.mongodb.net/ProjDB?retryWrites=true&w=majority"
 const port = process.env.PORT;
 
 //importing 
@@ -14,16 +16,29 @@ Course = require('./Models/CourseSchema');
 IndividualTrainee =require('./Models/IndividualTraineeSchema');
 Guest =require('./Models/GuestSchema');
 
+
 // configurations
 // Mongo DB
-mongoose.connect(process.env.MONGO_URL).then(()=>{
+/*mongoose.connect(process.env.MONGO_URI).then(()=>{
   console.log("MongoDB is now connected!")
 // Starting server
  app.listen(port, () => {
     console.log(`Listening to requests on http://localhost:${port}`);
   })
 })
-.catch(err => console.log(err));
+.catch(err => console.log(err));*/
+
+mongoose.connect(MONGO_URI)
+    .then(() => {
+        // listen for requests
+        app.listen(port, () => {
+            console.log('Listening on port', port);
+
+        });
+    })
+    .catch((error) => {
+        console.log(error);
+    })
 
 //using body-parser
 app.use(bodyParser.json());
@@ -50,8 +65,12 @@ app.use('/guest', GuestRoute);
 
 //Routing to corporate trainee
 const CorporateTraineeRoute = require("./Routes/CorporateTrainee");
-app.use('/corporatetraniee', CorporateTraineeRoute);
+app.use('/corporatetrainee', CorporateTraineeRoute);
 
 //Routing to individual trainee
 const IndividualTraineeRoute = require("./Routes/IndividualTrainee");
 app.use('/individualtrainee', IndividualTraineeRoute);
+
+//Routing to course
+const CourseRouter = require("./Routes/Course");
+app.use('/course', CourseRouter);
