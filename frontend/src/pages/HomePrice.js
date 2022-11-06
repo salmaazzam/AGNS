@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
 import { useCoursesContext } from "../hooks/useCourseContext";
-import CourseDetails from '../components/CourseDetails'
-import CountryForm from '../components/CountryForm'
+import CourseDetailsprice from '../components/CourseDetailsprice'
 
-const Home = () => {
+const HomePrice = () => {
    const {courses, dispatch} =useCoursesContext()
     useEffect(() => {
         const fetchCourses = async () => {
@@ -17,27 +16,22 @@ const Home = () => {
          }
         
          fetchCourses()
-                }, [dispatch])
+         
+        }, [dispatch])
 
     return (
-    <div className="Home" >
-      <div className="CourseInfo">
+    <div className="Homeprice" >
      <h2>Home</h2>
-     <div className = "Country">
-      <CountryForm />
-    </div>
      <h3>All Courses:</h3>
      <p>
     
    {courses && courses.map(course => (
-          <CourseDetails course={course} key={course._id} />
+          <CourseDetailsprice course={course} key={course._id} />
         ))}
      </p>
         
     </div>
-   
-    </div>
     )
 }
 
-export default Home
+export default HomePrice

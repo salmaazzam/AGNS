@@ -2,16 +2,16 @@
 
 /* layout */
 :root {
-  --primary: #1aac83;
+  --primary: #578ce7;
   --error: #e7195a;
 }
 body {
-  background: #f1f1f1;
+  background: #c6c2c2;
   margin: 0;
   font-family: "Poppins";
 }
 header {
-  background: #fff;
+  background: rgb(80, 122, 207);
 }
 header .container {
   max-width: 1400px;
@@ -29,4 +29,141 @@ header a {
   max-width: 1400px;
   padding: 20px;
   margin: 0 auto;
+}
+.admin {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 100px;
+}
+.admin-details {
+  background: #ffffff;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+.admin-details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+}
+.admin-details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+.admin-details span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+.Country span {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 40%;
+}
+.instructor {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 100px;
+}
+.instructor-details {
+  background: #ffffff;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+.instructor-details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+}
+.instructor-details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+.instructor-details span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+.corporateTrainee {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 100px;
+}
+.corporateTrainee-details {
+  background: #ffffff;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+.corporateTrainee-details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+}
+.corporateTrainee-details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+.corporateTrainee-details span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+label, input {
+  display: block;
+}
+input {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+form button {
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
+}
+div.error {
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: 4px;
+  margin: 20px 0;
+}
+input.error {
+  border: 1px solid var(--error);
 }
