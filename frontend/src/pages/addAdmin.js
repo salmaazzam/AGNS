@@ -1,31 +1,40 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useAdminsContext } from "../hooks/useAdminsContext"
+//components
+import AdminDetails from '../components/AdminDetails'
+import AdminForm from "../components/AdminForm"
 
-const addAdmin = () => {
-    const [admins, setAdmins] = useState(null)
+
+const AddAdmin = () => {
+  const { admins, dispatch } = useAdminsContext()
   
     useEffect(() => {
       const fetchAdmins = async () => {
-        const response = await fetch('/api/Admin')
+        const response = await fetch('/admin')
         const json = await response.json()
   
         if (response.ok) {
-          setAdmins(json)
+          dispatch({type: 'SET_ADMINS', payload: json})
         }
       }
   
       fetchAdmins()
-    }, [])
+    }, [dispatch])
 
 
     return (
-    <div className="Home" >
-     <div className="admins">
-        {admins && admins.map((admin) => (
-          <p key={admin._id}>{admin.username} </p>
+    
+     <div className="admin">
+      <div className="admins">
+        <h3>All admins:</h3>
+        {admins && admins.map(admin => (
+          <AdminDetails admin={admin} key={admin._id} />
         ))}
+        </div>
+        <AdminForm />
       </div>
-    </div>
+    
     )
 }
 
-export default addAdmin
+export default AddAdmin

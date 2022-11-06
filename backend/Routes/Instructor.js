@@ -1,17 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const { getInstructors, getInstructor, createInstructor, deleteInstructor, updateInstructor} = require('../Controllers/instructorController')
+const { getInstructors, getInstructor, createInstructor, deleteInstructor, updateInstructor, setCountry} = require('../Controllers/instructorController')
 //const course = require('../Models/CourseSchema');
 
 router.get("/", getInstructors) //("/", name of the function that gets the admins);
 
-router.get("/:id", getInstructor)
-
 router.post("/", createInstructor)
+
+router.get("/:id", getInstructor)
 
 router.delete("/:id", deleteInstructor)
 
 router.patch("/:id", updateInstructor)
+
+router.post("/country", setCountry)
+
+
 
 /*async function AddCourseHelper(coursetoInsert){
      

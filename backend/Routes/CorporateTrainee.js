@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getCorporateTrainees, getCorporateTrainee, createCorporateTrainee, deleteCorporateTrainee, updateCorporateTrainee} = require('../Controllers/CorporateTraineeController')
+const { getCorporateTrainees, getCorporateTrainee, createCorporateTrainee, deleteCorporateTrainee, updateCorporateTrainee, setCountry} = require('../Controllers/CorporateTraineeController')
   
 //const CorporateTrainee = require("../Models/CorporateTraineeSchema");
 
@@ -13,6 +13,8 @@ router.post("/", createCorporateTrainee)
 router.delete("/:id", deleteCorporateTrainee)
 
 router.patch("/:id", updateCorporateTrainee)
+
+router.post("/country", setCountry)
 
 /*async function changeCountry(Country){
     var { MongoClient }= require('mongodb');
