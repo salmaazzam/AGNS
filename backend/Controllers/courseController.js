@@ -74,7 +74,7 @@ const getMyCourses = async (req, res) => {
 
 
     const searchMyCourses = async (req, res) => {
-        const { id } = req.params
+        const { id } = req.body
         const { info } = req.body
     
         if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -136,5 +136,6 @@ module.exports =
   searchMyCourses, 
   searchCourses,
   filterPrice,
-  getCreate
+  getCreate,
+  filterCourses
 };

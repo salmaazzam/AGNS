@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getCreate, getCourses, searchCourses, createCourse, getMyCourses, searchMyCourses, filterPrice } = require('../Controllers/courseController')
+const { getCreate, getCourses, searchCourses, createCourse, getMyCourses, searchMyCourses, filterPrice, filterCourses } = require('../Controllers/courseController')
 
 
 router.get("/", getCourses) 
@@ -13,9 +13,13 @@ router.get('/:id/create', getCreate)
 
 router.post("/:id/create", createCourse)
 
-router.get("/:id", getMyCourses )
+router.get("/search", getMyCourses )
 
-router.post("/:id", searchMyCourses )
+router.post("/search", searchMyCourses )
+
+router.get("/filter", getMyCourses )
+
+router.post("/filter", filterCourses)
 
 
 module.exports = router;

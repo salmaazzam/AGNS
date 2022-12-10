@@ -3,7 +3,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 // pages and components
 import Home from './pages/Home'
 import Topbar from './components/Topbar';
-import AddAdmin from './pages/AddAdmin';
+import AddAdmin from './pages/addAdmin';
 import AddInstructor from './pages/AddInstructor';
 import AddCorporateTrainee from './pages/AddCorporateTrainee';
 import InstructorHome from './pages/InstructorHome'
