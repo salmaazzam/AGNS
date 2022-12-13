@@ -1,15 +1,18 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
+
 // pages and components
 import Home from './pages/Home'
 import Topbar from './components/Topbar';
-import AddAdmin from './pages/addAdmin';
+import AddAdmin from './pages/AddAdmin';
 import AddInstructor from './pages/AddInstructor';
 import AddCorporateTrainee from './pages/AddCorporateTrainee';
 import InstructorHome from './pages/InstructorHome'
 import HomePrice from './pages/HomePrice';
 import InstructorSearchPage from './pages/InstructorSearchPage';
 import SearchPage from './pages/SearchPage';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -50,7 +53,17 @@ function App() {
             path="/instructor"
             element={<InstructorHome />}
           />
+          <Route 
+            path="/login"
+            element={<Login />}
+          />
+          <Route 
+            path="/signup"
+            element={<Signup />}
+          />
         </Routes>
+
+
        </div>
       </BrowserRouter>
     </div>

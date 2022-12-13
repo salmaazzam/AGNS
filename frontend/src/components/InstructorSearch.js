@@ -1,6 +1,7 @@
 import { useEffect,useState } from 'react'
 import { useCoursesContext } from "../hooks/useCourseContext"
 import CourseDetails from '../components/CourseDetails'
+
 import axios from 'axios'
 
 const InstructorSearch = () =>{

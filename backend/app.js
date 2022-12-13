@@ -10,7 +10,7 @@ const port = process.env.PORT;
 //importing 
 //Admin
 Admin = require('./Models/AdminSchema');
-Instructor = require('./Models/InstructorSchema');
+Instructor =require('./Models/InstructorSchema');
 CorporateTrainee = require('./Models/CorporateTraineeSchema');
 Course = require('./Models/CourseSchema');
 IndividualTrainee =require('./Models/IndividualTraineeSchema');
@@ -74,3 +74,7 @@ app.use('/individualtrainee', IndividualTraineeRoute);
 //Routing to course
 const CourseRouter = require("./Routes/Course");
 app.use('/course', CourseRouter);
+
+//Routing to login
+const loginRoutes= require('./Routes/Login');
+app.use('/auth', loginRoutes)
