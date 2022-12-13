@@ -64,7 +64,7 @@ const forgetPass = async (req, res) => {
         to:email,
         subject:"Reset password",
         html : `<p>You have forgotten your password ? Don't worry, You can reset your password from here easily</p>            <p>This link<b> expires in 60 minutes</b>.</p> 
-            <a href="link">Reset password</a>` 
+            <a href="https://localhost:3000/resetpass">Reset password</a>` 
       }
       transporter.sendMail(mailOptions,(error,data) =>{
         if (error)

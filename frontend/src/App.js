@@ -13,7 +13,8 @@ import InstructorSearchPage from './pages/InstructorSearchPage';
 import SearchPage from './pages/SearchPage';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-
+import ResetPass from './pages/resetPass';
+import ForgetPass from './pages/forgetPas'
 function App() {
   return (
     <div className="App">
@@ -60,6 +61,14 @@ function App() {
           <Route 
             path="/signup"
             element={<Signup />}
+          />
+          <Route 
+            path="/forgetpass"
+            element={<ForgetPass />}
+          />
+          <Route 
+            path="/resetpass"
+            element={<ResetPass />}
           />
         </Routes>
 
