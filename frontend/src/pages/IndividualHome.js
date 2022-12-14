@@ -1,3 +1,5 @@
-const IndividualHome = () => {}
+const IndividualHome = () => {
+    
+}
 
 export default IndividualHome
