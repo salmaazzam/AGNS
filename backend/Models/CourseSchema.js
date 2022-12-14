@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const Exercise = require('./ExerciseSchema');
 const Instructor = require('./InstructorSchema');
+const Video = require('./videoSchema');
 const Schema = mongoose.Schema;
 
 const CourseSchema = new Schema({
@@ -39,7 +41,19 @@ const CourseSchema = new Schema({
   subject :{
     type: String,
     required : true
+  },
+  videos :{
+    type:Array,
+    items:{type:Video}
+  },
+  exercises:{
+    type:Array,
+    items:{type:Exercise}
+  },
+  review:{
+    type:String
   }
+
 
 }, { timestamps: true });
 

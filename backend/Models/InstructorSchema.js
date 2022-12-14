@@ -26,6 +26,12 @@ const InstructorSchema = new Schema({
   country:{
     type:String,
     required:  false
+  },
+  biorgaphy:{
+    type:String
+  },
+  rating:{
+    type:number
   }
   
 }, { timestamps: true });

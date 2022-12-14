@@ -15,6 +15,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ResetPass from './pages/resetPass';
 import ForgetPass from './pages/forgetPas'
+import Policy from './pages/Policy';
 function App() {
   return (
     <div className="App">
@@ -69,6 +70,11 @@ function App() {
           <Route 
             path="/resetpass"
             element={<ResetPass />}
+          />
+
+        <Route 
+            path="/policy"
+            element={<Policy />}
           />
         </Routes>
 

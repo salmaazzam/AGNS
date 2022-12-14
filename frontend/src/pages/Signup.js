@@ -55,6 +55,14 @@ const Signup = () =>{
          onChange={(e)=> setGender(e.target.value)}
          value={gender}
        />
+     
+     <div className="policy">
+      
+     <input type="checkbox" id="policy" name="policy" value="policy" required/>
+    <Link to="/policy">I agree to the policy</Link>
+     </div>
+
+
        <button disabled={isLoading}>Sign up</button>
        <br/>
        <Link to="/login">Already have an account? Login now</Link>

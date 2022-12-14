@@ -23,6 +23,10 @@ const CorporateTraineeSchema = new Schema({
   country:{
     type:String,
     required:false
+  },
+  courses:{
+    type:Array,
+    items:{type:Course}
   }
 
 }, { timestamps: true });

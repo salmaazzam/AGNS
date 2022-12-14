@@ -3,7 +3,8 @@ const { stringify } = require('qs');
 const Schema = mongoose.Schema;
 const bcrypt= require('bcrypt')
 const validator= require('validator')
-const Instructor = require('../Models/InstructorSchema') 
+const Instructor = require('../Models/InstructorSchema'); 
+const Course = require('./CourseSchema');
 
 const IndividualTraineeSchema = new Schema({
   username: {
@@ -33,6 +34,10 @@ const IndividualTraineeSchema = new Schema({
   country: {
     type: String,
     required: false,
+  },
+  courses:{
+    type:Array,
+    items:{type:Course}
   }
 }, { timestamps: true });
 

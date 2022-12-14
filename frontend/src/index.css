@@ -2,16 +2,17 @@
 
 /* layout */
 :root {
-  --primary: #578ce7;
+  --primary: #81cae7;
   --error: #e7195a;
+  --message: #278b51;
 }
 body {
-  background: #c6c2c2;
+  background: #ffffff;
   margin: 0;
   font-family: "Poppins";
 }
 header {
-  background: rgb(80, 122, 207);
+  background: #81cae7;
 }
 header .container {
   max-width: 1400px;
@@ -135,6 +136,34 @@ header a {
   border-radius: 50%;
   color: #333;
 }
+.course-details {
+  background: #eeecec;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+.course-details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+}
+.course-details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+.course-details span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
 label, input {
   display: block;
 }
@@ -164,6 +193,17 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
+div.message {
+  padding: 10px;
+  background: #dbe9dc;
+  border: 1px solid var(--message);
+  color: var(--message);
+  border-radius: 4px;
+  margin: 20px 0;
+}
+input.message {
+  border: 1px solid var(--message);
+}
 input.error {
   border: 1px solid var(--error);
 }
@@ -186,11 +226,59 @@ nav a {
   margin-left: 10px;
 }
 /* auth forms */
-form.signup, form.login, form.forgetpass, form.resetpass {
+form.signup, form.login, form.forgetpass, form.resetpass{
   max-width: 400px;
   margin: 40px auto;
   padding: 20px;
   background: #fff;
   border-radius: 4px;
 }
+.course-details-price {
+  background: #eeecec;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+.course-details-price  h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+}
+.course-details-price p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+.course-details-price  span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+.search{
+  width:250px;
+  float:left;
+  padding: 10px;
+}
+.filterPrice{
+  margin-left: 100px;
+  width: 250px;
+  float:inline-start
 
+}
+.filterSubject{
+  margin-left: 700px;
+  width: 250px;
+  float:none;
+ 
+}
+.SearchResult{
+  margin-left: -600px;
+  float:inline-start;
+}

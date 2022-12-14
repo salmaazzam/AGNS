@@ -58,13 +58,14 @@ const FilterSubject = (e)=>{
 const arr = searchResult.map((course)=>{
     return(
         <div className="info">
-            <p><strong>Title</strong> {course.title}</p> <br/>
+            {/* <p><strong>Title</strong> {course.title}</p> <br/>
             <p><strong>Price</strong> {course.price}</p><br/>
             <p><strong>shortSummary</strong>{course.shortSummary}</p> <br/>
             <p><strong>subtitles</strong>{course.subtitles}</p><br/>
             <p><strong>InstructorName</strong>{course.InstructorName}</p><br/>
             <p><strong>totalHours</strong>{course.totalHours}</p> <br/>
-            <p><strong>subject</strong>{course.subject}</p><br/>
+            <p><strong>subject</strong>{course.subject}</p><br/> */}
+            <CourseDetails course={course} key={course._id} />
 
         </div>        
     )
@@ -78,6 +79,7 @@ return(
         value = {info}
         className={emptyFields.includes('key') ? 'error' : ''}
         />
+        <button type = "button" onClick = {SearchButton}>Search </button>
         </div>
         <div className = "filterPrice">
         <p>filter Price</p> 
@@ -96,14 +98,16 @@ return(
         </div>
         <div className='SearchResult'>
             <h1>Search Results</h1>
-            {courses && courses.map(course => (
+            {searchResult && searchResult.map(course => (
           <CourseDetails course={course} key={course._id} />
         ))}
         </div>
-        <button type = "button" onClick = {SearchButton}>Search </button>
+        
         {error && <div className="error">{error}</div>}
-
-        {arr}
+        {/* {searchResult&& searchResult.map(course => (
+          <CourseDetails course={course} key={course._id} />
+        ))} */}
+        {/* {arr} */}
     </form>
 )
 
