@@ -31,7 +31,7 @@ const InstructorSchema = new Schema({
     type:String
   },
   rating:{
-    type:number
+    type: Number
   }
   
 }, { timestamps: true });

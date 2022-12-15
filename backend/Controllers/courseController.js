@@ -13,7 +13,7 @@ const getCourses = async (req, res) => {
 
 //for Instructor to createCourse
 const createCourse = async(req,res) => {
-    const { id } = req.params
+    const { id } = req.body
     const {title, price, shortSummary, subtitles, InstructorName, InstructorId, totalHours , subject} = req.body
 
     let emptyFields = []
@@ -63,7 +63,7 @@ const createCourse = async(req,res) => {
 
 //for Instructor to view his courses
 const getMyCourses = async (req, res) => {
-    const { id } = req.params
+    const { id } = req.body
     console.log(id)
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such Instructor'})
@@ -94,7 +94,10 @@ const getMyCourses = async (req, res) => {
 
             const filterPrice = async (req, res) => {
               const { max , min } = req.body
+              const maxnum = Number(max);
+              const minnum = Number(min);
               let emptyFields =[]
+              let coursesTitle=[];
               if(!max){
                 emptyFields.push('max')
               }
@@ -102,20 +105,54 @@ const getMyCourses = async (req, res) => {
                 emptyFields.push('min')
               }
               if(emptyFields.length==1 && emptyFields[0]==='max'){
-                const coursesTitle = await Course.findAll({price : {$gt: min}}).sort({createdAt: -1})
+                coursesTitle = await Course.find({price : {$gt: minnum}})
               }  
               if(emptyFields.length==1 && emptyFields[0]==='min'){
-                const coursesTitle = await Course.findAll({price : {$lt: max}}).sort({createdAt: -1})
+                coursesTitle = await Course.find({price : {$lt: maxnum}})
               }
               if(emptyFields.length==0 ){
-                const coursesTitle = await Course.findAll({price : {$gt: min }}, {price: {$lt:max}}).sort({createdAt: -1})
+                coursesTitle = await Course.find({$and :[{price:{$gt:minnum}},{price:{$lt:maxnum}}]})
               }
               if(emptyFields.length==2 ){
                 return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
               }
               // const coursesTitle = await Course.findAll({price: price}).sort({createdAt: -1})
               
-              res.status(200).json(coursesTitle)}
+              res.status(200).json(coursesTitle)
+            
+            
+            }
+
+            const filterMyPrice = async (req, res) => {
+              const { max , min, id } = req.body
+              const maxnum = Number(max);
+              const minnum = Number(min);
+              let emptyFields =[]
+              let coursesTitle=[];
+              if(!max){
+                emptyFields.push('max')
+              }
+              if(!min){
+                emptyFields.push('min')
+              }
+              if(emptyFields.length==1 && emptyFields[0]==='max'){
+                coursesTitle = await Course.find({price : {$gt: minnum}})
+              }  
+              if(emptyFields.length==1 && emptyFields[0]==='min'){
+                coursesTitle = await Course.find({price : {$lt: maxnum}})
+              }
+              if(emptyFields.length==0 ){
+                coursesTitle = await Course.find({$and :[{price:{$gt:minnum}},{price:{$lt:maxnum}}, {InstructorID:id}]})
+              }
+              if(emptyFields.length==2 ){
+                return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+              }
+              // const coursesTitle = await Course.findAll({price: price}).sort({createdAt: -1})
+              
+              res.status(200).json(coursesTitle)
+            
+            
+            }
 
               const filterCourses = async (req, res) => {
                 const { sub } = req.body
@@ -137,5 +174,6 @@ module.exports =
   searchCourses,
   filterPrice,
   getCreate,
-  filterCourses
+  filterCourses,
+  filterMyPrice
 };

@@ -10,10 +10,32 @@ const [info, setSearchKey]= useState('')
 const [courses, setCourses]= useState('')
 const [emptyFields, setEmptyFields] = useState([])
 const [error, setError] = useState(null)
+const [filterSubject, setFilterSubject]= useState('')
+const [max, setMax]= useState('')
+const [min,setMin]= useState('')
 
 const api = axios.create({
     baseURL: '/course'})
-    
+
+    const FilterSubject = (e)=>{
+        e.preventDefault();
+        api.post('/', {"info":filterSubject}).then(res=>{
+            setCourses(res.data);
+            setFilterSubject('')
+            })
+        }
+
+ const FilterPrice = (e)=>{
+        e.preventDefault();
+        api.post('/filterPrice', {"max":max,"min":min}).then(res=>{
+          setCourses(res.data);
+          setMin('')
+          setMax('')
+            })
+            }
+
+
+
 const handleSubmit = async (e) => {
       e.preventDefault()
     //const info = {info}
@@ -50,15 +72,24 @@ return(
         </div>
         <div className = "filterPrice">
         <p>Filter Price</p> 
-        <input type= "number" placeholder='min'/>
-        <input type= "number" placeholder='max'/>
-        <button>Filter Price</button>
+        <input type= "textbox" 
+         onChange = {(e)=>setMin(e.target.value)}
+         value ={min}
+        placeholder='min'/>
+        <input type= "textbox"
+        onChange = {(e)=>setMax(e.target.value)}
+        value ={max}
+        placeholder='max'/>
+        <button type ="button" onClick = {FilterPrice}>Filter Price</button>
         </div>
 
         <div className = "filterSubject">
         <p>Filter Subject</p> 
-        <input type= "textbox" placeholder='Subject'/>
-        <button>Filter Subject</button>
+        <input type= "textbox" 
+        onChange = {(e)=>setFilterSubject(e.target.value)}
+        value ={filterSubject}
+        placeholder='Subject'/>
+        <button type ="button" onClick = {FilterSubject}>Filter Subject</button>
         </div>
 
         
