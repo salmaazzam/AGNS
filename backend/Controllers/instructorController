@@ -108,13 +108,38 @@ const updateInstructor = async (req, res) => {
     res.status(200).json(instructor)
   }
 
+  const getRatings = async(req,res)=>{
+    const {id} = req.body
+    try{
+      const ratings = await Instructor.find({_id:id}, {rating:1})
+      res.status(200).json(ratings)
+    }
+    catch(error){
+      return res.status(400).json({error: error.message})
+    }
+  }
+
+  const AddRatings = async(req,res)=>{
+    const{id, rating}= req.body
+
+    try{
+      const instructor = await Instructor.findOneAndUpdate({_id: id}, {$push:{rating}})
+      res.status(200).json(instructor);
+    }
+    catch(error){
+      return res.status(400).json({error: error.message})
+    }
+  }
+
   module.exports = {
     getInstructors,
     getInstructor,
     createInstructor,
     deleteInstructor,
     updateInstructor,
-    setCountry
+    setCountry,
+    getRatings,
+    AddRatings
   }
 /*async function AddInstructorHelper (InstructorInsert){
     

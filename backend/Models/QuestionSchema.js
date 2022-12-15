@@ -13,7 +13,7 @@ const QuestionSchema = new Schema({
         maxItems:4
     },
     CorrectAnswer:{
-        type: Number
+        type: Number,
     }
 
     

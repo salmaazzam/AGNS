@@ -7,6 +7,9 @@ const ExerciseSchema = new Schema({
     Exercise:{
         type:Array,
         items:{type:Question}
+    },
+    CID:{
+        type:String
     }
 
 }, { timestamps: true });

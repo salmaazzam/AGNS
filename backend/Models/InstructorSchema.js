@@ -31,7 +31,12 @@ const InstructorSchema = new Schema({
     type:String
   },
   rating:{
-    type: Number
+    type:Array,
+    items:{type: Number}
+  },
+  reviews:{
+    type:Array,
+    items:{type: String}
   }
   
 }, { timestamps: true });

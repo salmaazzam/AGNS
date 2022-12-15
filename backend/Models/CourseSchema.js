@@ -1,3 +1,4 @@
+const { links } = require('express/lib/response');
 const mongoose = require('mongoose');
 const Exercise = require('./ExerciseSchema');
 const Instructor = require('./InstructorSchema');
@@ -52,7 +53,11 @@ const CourseSchema = new Schema({
   },
   review:{
     type:String
+  },
+  preview :{
+    type: String
   }
+
 
 
 }, { timestamps: true });

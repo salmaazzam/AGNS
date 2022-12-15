@@ -15,6 +15,7 @@ CorporateTrainee = require('./Models/CorporateTraineeSchema');
 Course = require('./Models/CourseSchema');
 IndividualTrainee =require('./Models/IndividualTraineeSchema');
 Guest =require('./Models/GuestSchema');
+Exercise = require('./Models/ExerciseSchema');
 
 
 // configurations
@@ -27,7 +28,7 @@ Guest =require('./Models/GuestSchema');
   })
 })
 .catch(err => console.log(err));*/
-
+mongoose.set("strictQuery", false);
 mongoose.connect(MONGO_URI)
     .then(() => {
         // listen for requests
@@ -78,3 +79,6 @@ app.use('/course', CourseRouter);
 //Routing to login
 const loginRoutes= require('./Routes/Login');
 app.use('/auth', loginRoutes)
+
+const ExerciseRoute = require('./Routes/Exercise');
+app.use('/exercise', ExerciseRoute)

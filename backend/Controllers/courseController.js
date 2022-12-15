@@ -166,6 +166,17 @@ const getMyCourses = async (req, res) => {
                   res.status(200).json({message: " wtf"})
                 }
 
+const addPreview = async(req,res)=>{
+  const {CID, prevLink} = req.body
+  const course = await Course.findOneAndUpdate({_id : CID}, {preview: prevLink})
+  if (!course) {
+    return res.status(400).json({error: 'No such course'})
+  }
+
+  res.status(200).json(course)
+
+}
+
 module.exports = 
 { getCourses, 
   createCourse, 
@@ -175,5 +186,6 @@ module.exports =
   filterPrice,
   getCreate,
   filterCourses,
-  filterMyPrice
+  filterMyPrice,
+  addPreview
 };
