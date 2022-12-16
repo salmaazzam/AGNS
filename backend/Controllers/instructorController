@@ -131,6 +131,30 @@ const updateInstructor = async (req, res) => {
     }
   }
 
+  const UpdateBio = async (req,res)=>{
+    const{id, newBio}= req.body
+    try{
+      const instructor = await Instructor.findOneAndUpdate({_id:id},{biorgaphy:newBio})
+      res.status(200).json(instructor)
+    }
+    catch(error){
+      return res.status(400).json({error: error.message})
+    }
+
+  }
+
+  const UpdateEmail = async (req,res)=>{
+    const{id, newEmail}= req.body
+    try{
+      const instructor = await Instructor.findOneAndUpdate({_id:id},{email:newEmail})
+      res.status(200).json(instructor)
+    }
+    catch(error){
+      return res.status(400).json({error: error.message})
+    }
+
+  }
+
   module.exports = {
     getInstructors,
     getInstructor,
@@ -139,7 +163,9 @@ const updateInstructor = async (req, res) => {
     updateInstructor,
     setCountry,
     getRatings,
-    AddRatings
+    AddRatings,
+    UpdateBio,
+    UpdateEmail
   }
 /*async function AddInstructorHelper (InstructorInsert){
     

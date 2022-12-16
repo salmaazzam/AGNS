@@ -168,13 +168,38 @@ const getMyCourses = async (req, res) => {
 
 const addPreview = async(req,res)=>{
   const {CID, prevLink} = req.body
-  const course = await Course.findOneAndUpdate({_id : CID}, {preview: prevLink})
+  const embeddedLink = prevLink.replace("www.youtube.com/watch?v=", "www.youtube.com/embed/");
+  // console.log(prevLink);
+  // console.log(embeddedLink);
+  const course = await Course.findOneAndUpdate({_id : CID}, {preview: embeddedLink})
   if (!course) {
     return res.status(400).json({error: 'No such course'})
   }
 
   res.status(200).json(course)
 
+}
+const getRatings = async(req,res)=>{
+  const {id} = req.body
+  try{
+    const rating = await Course.find({_id:id}, {ratings:1})
+    res.status(200).json(rating)
+  }
+  catch(error){
+    return res.status(400).json({error: error.message})
+  }
+}
+
+const AddRatings = async(req,res)=>{
+  const{id, ratings}= req.body
+
+  try{
+    const course = await Course.findOneAndUpdate({_id: id}, {$push:{ratings}})
+    res.status(200).json(course);
+  }
+  catch(error){
+    return res.status(400).json({error: error.message})
+  }
 }
 
 module.exports = 
@@ -187,5 +212,7 @@ module.exports =
   getCreate,
   filterCourses,
   filterMyPrice,
-  addPreview
+  addPreview,
+  AddRatings, 
+  getRatings
 };

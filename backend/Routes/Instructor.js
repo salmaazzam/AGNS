@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { getInstructors, getInstructor, createInstructor, deleteInstructor, updateInstructor, setCountry, getRatings, AddRatings} = require('../Controllers/instructorController')
+const { getInstructors, getInstructor, createInstructor, deleteInstructor, updateInstructor, setCountry, 
+    getRatings, AddRatings,UpdateBio, UpdateEmail} = require('../Controllers/instructorController')
 //const course = require('../Models/CourseSchema');
 
 router.get("/", getInstructors) //("/", name of the function that gets the admins);
@@ -21,9 +22,17 @@ router.get("/myRatings",getRatings)
 
 router.post("/myRatings",getRatings)
 
-router.get("/ratings",getRatings)
+router.get("/ratings",AddRatings)
 
 router.post("/ratings",AddRatings)
+
+router.get("/bio",UpdateBio)
+
+router.post("/bio",UpdateBio)
+
+router.get("/email",UpdateEmail)
+
+router.post("/email",UpdateEmail)
 
 
 

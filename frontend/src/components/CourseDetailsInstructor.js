@@ -1,13 +1,20 @@
 import { useCoursesContext } from "../hooks/useCourseContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 import YoutubeEmbed from "../components/YoutubeEmbed";
+import { useNavigate } from "react-router-dom";
 
 // date fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
-const CourseDetails = ({ course }) => {
+const CourseDetailsInstructors = ({ course }) => {
   const { dispatch } = useCoursesContext()
   const {user} = useAuthContext()
+  const Navigate = useNavigate();
+
+  const createExercise = (e)=>{
+    e.preventDefault();
+    // Navigate('/courseDetails')
+  }
 
   const handleClick = async () => {
     if(!user){
@@ -36,6 +43,7 @@ const CourseDetails = ({ course }) => {
         <p>{formatDistanceToNow(new Date(course.createdAt), { addSuffix: true })}</p>
         <p><strong>Preview Video:</strong> </p>
         <YoutubeEmbed embedId = {course.preview}/>
+        <button type="button" onClick={createExercise}></button>
         <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
       </div>
     )
@@ -51,9 +59,10 @@ const CourseDetails = ({ course }) => {
         </p>
         <p> Ratings : {course.ratings}</p>
         <p>{formatDistanceToNow(new Date(course.createdAt), { addSuffix: true })}</p>
+        <button type="button" onClick={createExercise}>Create Exercise</button>
         <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
       </div>
     )
   }
   
-  export default CourseDetails
+  export default CourseDetailsInstructors

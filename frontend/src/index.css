@@ -288,7 +288,7 @@ form.signup, form.login, form.forgetpass, form.resetpass{
 }
 .video-responsive {
   overflow: hidden;
-  padding-bottom: 56.25%;
+  padding-bottom: 10%;
   position: relative;
   height: 0;
 }
@@ -299,4 +299,17 @@ form.signup, form.login, form.forgetpass, form.resetpass{
   height: 100%;
   width: 100%;
   position: absolute;
+}
+.course-details button {
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  width:150px;
+  cursor: pointer;
+}
+.EditProfile{
+  float:right;
 }

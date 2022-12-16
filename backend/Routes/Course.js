@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { getCreate, getCourses, searchCourses, createCourse, getMyCourses, searchMyCourses, filterPrice, filterCourses, filterMyPrice, addPreview } = require('../Controllers/courseController')
+const { getCreate, getCourses, searchCourses, createCourse, getMyCourses, searchMyCourses, filterPrice, 
+    filterCourses, filterMyPrice, addPreview, AddRatings, getRatings } = require('../Controllers/courseController')
 
 
 router.get("/", getCourses) 
@@ -34,6 +35,14 @@ router.post("/get", getMyCourses )
 router.get("/addPreview", addPreview )
 
 router.post("/addPreview",addPreview )
+
+router.get("/myRatings",getRatings)
+
+router.post("/myRatings",getRatings)
+
+router.get("/ratings",AddRatings)
+
+router.post("/ratings",AddRatings)
 
 
 

@@ -11,7 +11,7 @@ const CourseSchema = new Schema({
     required: true,
   },
   price: {
-    type: String,
+    type: Number,
     required : true
   },
   shortSummary: {
@@ -36,8 +36,8 @@ const CourseSchema = new Schema({
 
   },
   ratings:{
-    type: Number,
-    required:false
+    type:Array,
+    items:{type: Number}
   },
   subject :{
     type: String,
