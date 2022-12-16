@@ -106,15 +106,21 @@ const getMyCourses = async (req, res) => {
               }
               if(emptyFields.length==1 && emptyFields[0]==='max'){
                 coursesTitle = await Course.find({price : {$gt: minnum}})
+                console.log("all> minimum")
               }  
               if(emptyFields.length==1 && emptyFields[0]==='min'){
                 coursesTitle = await Course.find({price : {$lt: maxnum}})
+                console.log("all<max")
               }
               if(emptyFields.length==0 ){
                 coursesTitle = await Course.find({$and :[{price:{$gt:minnum}},{price:{$lt:maxnum}}]})
+                console.log("all in between")
+                console.log(coursesTitle);
               }
               if(emptyFields.length==2 ){
+                console.log("no max or min given")
                 return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+
               }
               // const coursesTitle = await Course.findAll({price: price}).sort({createdAt: -1})
               

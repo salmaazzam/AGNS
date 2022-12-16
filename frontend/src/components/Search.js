@@ -27,7 +27,7 @@ const api = axios.create({
 
  const FilterPrice = (e)=>{
         e.preventDefault();
-        api.post('/filterPrice', {"max":max,"min":min}).then(res=>{
+        api.post('/filterPrice', {max,min}).then(res=>{
           setCourses(res.data);
           setMin('')
           setMax('')
@@ -72,11 +72,11 @@ return(
         </div>
         <div className = "filterPrice">
         <p>Filter Price</p> 
-        <input type= "textbox" 
+        <input type= "Number" 
          onChange = {(e)=>setMin(e.target.value)}
          value ={min}
         placeholder='min'/>
-        <input type= "textbox"
+        <input type= "Number"
         onChange = {(e)=>setMax(e.target.value)}
         value ={max}
         placeholder='max'/>
