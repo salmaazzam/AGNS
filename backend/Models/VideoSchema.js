@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 
 
 const VideoSchema = new Schema({
-
+    subtitle:{
+        type:String
+    },
     link:{
         type:String
     },

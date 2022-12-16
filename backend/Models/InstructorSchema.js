@@ -37,6 +37,9 @@ const InstructorSchema = new Schema({
   reviews:{
     type:Array,
     items:{type: String}
+  },
+  policy:{
+    type:Boolean
   }
   
 }, { timestamps: true });

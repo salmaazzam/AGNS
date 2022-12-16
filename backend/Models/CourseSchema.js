@@ -17,10 +17,6 @@ const CourseSchema = new Schema({
   shortSummary: {
     type: String,
     required : true
-  },
-  subtitles: {
-    type: String,
-    required : true
   }, 
   InstructorName: {
   type: String,
@@ -43,7 +39,7 @@ const CourseSchema = new Schema({
     type: String,
     required : true
   },
-  videos :{
+  subtitles :{
     type:Array,
     items:{type:Video}
   },
