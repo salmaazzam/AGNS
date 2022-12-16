@@ -3,6 +3,7 @@ import { useCoursesContext } from "../hooks/useCourseContext"
 import CourseDetails from '../components/CourseDetails'
 
 import axios from 'axios'
+import { max } from 'date-fns'
 
 const InstructorSearch = () =>{
 const {dispatch} = useCoursesContext()
@@ -12,9 +13,11 @@ const [courses, setCourses]= useState('')
 const [emptyFields, setEmptyFields] = useState([])
 const [error, setError] = useState(null)
 const [searchResult, setSearchResult]= useState([])
+const[max, setMax]= useState('')
+const[min,setMin]=useState('')
 const api = axios.create({
     baseURL: '/course'})
-const testID = "63673640b44f1ebe24992530"
+const testID = "636e4c6ec3a1faa23d6fa918"
 
 // const handleSubmit = async (e) => {
 //       e.preventDefault()
@@ -50,6 +53,15 @@ const FilterSubject = (e)=>{
     api.post('/search', {"info":filterSubject, "id":testID}).then(res=>{
         setSearchResult(res.data);
         setFilterSubject('')
+    })          
+
+}
+
+const FilterPrice = (e)=>{
+    e.preventDefault();
+    api.post('/filterPrice', {max, min, "id":testID}).then(res=>{
+        setSearchResult(res.data);
+        setFilterSubject('')
     })
 
 }
@@ -83,9 +95,11 @@ return(
         </div>
         <div className = "filterPrice">
         <p>filter Price</p> 
-        <input type= "number" placeholder='min'/>
-        <input type= "number" placeholder='max'/>
-        <button>Filter Price</button>
+        <input type= "number" placeholder='min' onChange= {(e)=> setMin(e.target.value)}
+        value = {min}/>
+        <input type= "number" placeholder='max' onChange= {(e)=> setMax(e.target.value)}
+        value = {max}/>
+        <button type = "button" onClick = {FilterPrice}>Filter Price</button>
         </div>
 
         <div className = "filterSubject">
