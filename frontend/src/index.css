@@ -313,3 +313,11 @@ form.signup, form.login, form.forgetpass, form.resetpass{
 .EditProfile{
   float:right;
 }
+.AddQuestion{
+  margin-left: 100px;
+  margin-right: 50px;
+}
+
+.AddQuestion input{
+  width: 500px;
+}

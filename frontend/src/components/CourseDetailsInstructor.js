@@ -1,10 +1,13 @@
 import { useCoursesContext } from "../hooks/useCourseContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 import YoutubeEmbed from "../components/YoutubeEmbed";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 // date fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import Axios from "axios"
+
+
 
 const CourseDetailsInstructors = ({ course }) => {
   const { dispatch } = useCoursesContext()
@@ -13,7 +16,18 @@ const CourseDetailsInstructors = ({ course }) => {
 
   const createExercise = (e)=>{
     e.preventDefault();
-    // Navigate('/courseDetails')
+    Axios.post("/exercise",{CID:course._id}).then(res=> {
+      //console.log('creating exercise',res)
+    // Navigate('/addquestions'
+    console.log( res.data._id)
+   // console.log("^ EXID")
+    Navigate('/addquestions',{
+  state:{
+    id: res.data._id
+  }
+})
+  }).catch(err => console.log(err))
+    
   }
 
   const handleClick = async () => {

@@ -18,6 +18,7 @@ import ForgetPass from './pages/forgetPas'
 import Policy from './pages/Policy';
 import Tester from './pages/tester'
 import InstructorProfile from './pages/InstructorProfile';
+import AddQuestions from './pages/AddQuestions';
 
 function App() {
   return (
@@ -86,6 +87,10 @@ function App() {
           <Route 
             path="/instructorProfile"
             element={<InstructorProfile />}
+          />
+          <Route 
+            path="/addquestions"
+            element={<AddQuestions />}
           />
         </Routes>
 
