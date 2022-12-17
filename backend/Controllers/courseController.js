@@ -80,7 +80,7 @@ const getMyCourses = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(404).json({error: 'No such Instructor'})
           }
-        const courses = await Course.find({InstructorID: id, $or:[{title: info },{subject: info}]}).sort({createdAt: -1})
+        const courses = await Course.find({InstructorId: id, $or:[{title: info },{subject: info}]}).sort({createdAt: -1})
           console.log(courses)
         res.status(200).json(courses)}
 

@@ -61,7 +61,8 @@ const FilterPrice = (e)=>{
     e.preventDefault();
     api.post('/filterPrice', {max, min, "id":testID}).then(res=>{
         setSearchResult(res.data);
-        setFilterSubject('')
+        setMin('');
+        setMax('');
     })
 
 }

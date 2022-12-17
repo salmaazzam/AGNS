@@ -321,3 +321,7 @@ form.signup, form.login, form.forgetpass, form.resetpass{
 .AddQuestion input{
   width: 500px;
 }
+.Country{
+  width:30%
+  
+}

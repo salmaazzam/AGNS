@@ -1,17 +1,17 @@
 import { useCoursesContext } from "../hooks/useCourseContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 import YoutubeEmbed from "../components/YoutubeEmbed";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
 
 // date fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import Axios from "axios"
 
-
-
 const CourseDetailsInstructors = ({ course }) => {
   const { dispatch } = useCoursesContext()
   const {user} = useAuthContext()
+  const [URL, setURL]= useState("")
   const Navigate = useNavigate();
 
   const createExercise = (e)=>{
@@ -43,6 +43,14 @@ const CourseDetailsInstructors = ({ course }) => {
       dispatch({type: 'DELETE_COURSE', payload: json})
     }
   }
+
+  const AddPreview = ()=>{
+    Axios.post("/course/addPreview",{CID:course._id, prevLink: URL}).then(res=>{
+      console.log("adding preview Link");
+      setURL("")
+    })
+  }
+
   if(course.preview){
     return (
       
@@ -56,8 +64,8 @@ const CourseDetailsInstructors = ({ course }) => {
         <p> Ratings : {course.ratings}</p>
         <p>{formatDistanceToNow(new Date(course.createdAt), { addSuffix: true })}</p>
         <p><strong>Preview Video:</strong> </p>
-        <YoutubeEmbed embedId = {course.preview}/>
-        <button type="button" onClick={createExercise}></button>
+        <YoutubeEmbed embedId = {course.preview}/><br/>
+        <button type="button" onClick={createExercise}>Create Exercise</button>
         <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
       </div>
     )
@@ -73,6 +81,13 @@ const CourseDetailsInstructors = ({ course }) => {
         </p>
         <p> Ratings : {course.ratings}</p>
         <p>{formatDistanceToNow(new Date(course.createdAt), { addSuffix: true })}</p>
+        <label>Preview URL :</label>
+      <input 
+        type="text" 
+        onChange={(e) => setURL(e.target.value)} 
+        value={URL}
+      />
+        <button type="button" onClick={AddPreview}>Add Preview</button>  &nbsp;&nbsp;
         <button type="button" onClick={createExercise}>Create Exercise</button>
         <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
       </div>
