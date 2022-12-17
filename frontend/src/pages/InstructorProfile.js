@@ -10,7 +10,7 @@ const InstructorProfile =()=>{
        <div>
         <p><strong>My Profile</strong></p>
         {/* <InstructorDetails Instructor={user}></InstructorDetails> */}
-        <EditProfile id={"123456"}></EditProfile>
+        <EditProfile id={"636e4c6ec3a1faa23d6fa918"}></EditProfile>
        </div>
 
     )
