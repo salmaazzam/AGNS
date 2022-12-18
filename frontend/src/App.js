@@ -19,6 +19,8 @@ import Policy from './pages/Policy';
 import Tester from './pages/tester'
 import InstructorProfile from './pages/InstructorProfile';
 import AddQuestions from './pages/AddQuestions';
+import InstructorAddCourse from './pages/InstructorAddCourse';
+import AddSubtitle from './pages/AddSubtitle';
 
 function App() {
   return (
@@ -92,6 +94,15 @@ function App() {
             path="/addquestions"
             element={<AddQuestions />}
           />
+          <Route 
+            path="/addcourse"
+            element={<InstructorAddCourse />}
+          />
+          <Route 
+            path="/addsubtitle"
+            element={<AddSubtitle />}
+          />
+
         </Routes>
 
 

@@ -1,7 +1,7 @@
 const Course = require('../Models/CourseSchema');
 const Instructor = require('../Models/InstructorSchema');
 const mongoose = require('mongoose');
-
+const Subtitle = require('../Models/SubtitleSchema');
 
 
 //for anyone to view all courses
@@ -62,11 +62,6 @@ const createCourse = async(req,res) => {
 
 }
 
-const insertCourse = async(req,res) => {
-  const { id } = req.body
-  const {title, price, shortSummary, InstructorName, InstructorId , subject} = req.body
-
-}
 
 //for Instructor to view his courses
 const getMyCourses = async (req, res) => {
@@ -215,6 +210,93 @@ const AddRatings = async(req,res)=>{
   }
 }
 
+//subtitle insertion need course id subtitle video hours desc
+const insertSubtitle =async(req,res) =>{
+  const {CID, subtitle, video, hours, description } = req.body
+  let emptyFields = []
+
+
+  if (!CID) {
+    emptyFields.push('CID')
+  }
+  if (!subtitle) {
+    emptyFields.push('subtitle')
+  }
+  if (!video) {
+    emptyFields.push('video')
+  }
+  if (!hours) {
+    emptyFields.push('hours')
+  }
+  if (!description) {
+    emptyFields.push('description')
+  }
+  if (emptyFields.length > 0) {
+    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(CID)) {
+    return res.status(404).json({error: 'No such Course'})
+  }
+  const Subtitle1=await Subtitle.create({subtitle,video,description, hours})
+
+  try {
+    const course = await Course.findOneAndUpdate({_id: CID}, {$push:{subtitles:Subtitle1}})
+    res.status(200).json(course)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+
+}
+
+
+const insertCourse = async(req,res) => {
+  const { id } = req.body
+  const {title, price, shortSummary, InstructorName, InstructorId , subject} = req.body
+  const subtitles = [];
+
+  // console.log("entered funccc")
+  let emptyFields = []
+
+  if (!title) {
+    emptyFields.push('title')
+  }
+  if (!price) {
+    emptyFields.push('price')
+  }
+  if (!shortSummary) {
+    emptyFields.push('shortSummary')
+  }
+  if (!InstructorName) {
+    emptyFields.push('InstructorName')
+  }
+  if (!InstructorId) {
+    emptyFields.push('InstructorId')
+  }
+  if (!subject) {
+    emptyFields.push('subject')
+  }
+  if (emptyFields.length > 0) {
+    return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'No such Instructor'})
+  }
+
+  try {
+    const course = await Course.create({ title,price,shortSummary,InstructorName,InstructorId, subject, subtitles })
+    
+    res.status(200).json(course)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+
+}
+
+
+
+
 module.exports = 
 { getCourses, 
   createCourse, 
@@ -227,5 +309,7 @@ module.exports =
   filterMyPrice,
   addPreview,
   AddRatings, 
-  getRatings
+  getRatings,
+  insertCourse,
+  insertSubtitle
 };

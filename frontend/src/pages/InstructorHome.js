@@ -41,18 +41,23 @@ const InstructorHome = () => {
       Navigate('/instructorProfile')
     }
 
+   const AddCourse =() =>{
+    Navigate('/addcourse')
+   } 
+
    // if(policy){
       return (
     
         <div className="Instructor">
-          <button type="button" onClick={Home}>My Profile</button>
+          <button type="button" onClick={Home}>My Profile</button>&nbsp;&nbsp;
+          <button type="button" onClick={AddCourse}>Add Course</button>
          <div className="courses">
            <h3>My Courses:</h3>
            {courses && courses.map(course => (
             <CourseDetailsInstructor course={course} key={course._id} />
           ))}
            </div>
-           <CourseForm />
+           {/* <CourseForm /> */}
          </div>
        
        )

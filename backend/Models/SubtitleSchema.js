@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const SubtitleSchema = new Schema({
     subtitle:{
-        type:String
+        type:String,
+        required : true
     },
     link:{
         type:String

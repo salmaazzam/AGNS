@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { getCreate, getCourses, searchCourses, createCourse, getMyCourses, searchMyCourses, filterPrice, 
-    filterCourses, filterMyPrice, addPreview, AddRatings, getRatings } = require('../Controllers/courseController')
+    filterCourses, filterMyPrice, addPreview, AddRatings, getRatings, insertCourse,insertSubtitle } = require('../Controllers/courseController')
 
 
 router.get("/", getCourses) 
@@ -44,7 +44,11 @@ router.get("/ratings",AddRatings)
 
 router.post("/ratings",AddRatings)
 
+router.post("/insertsubtitle", insertSubtitle)
 
 
+router.get("/insert", insertCourse)
+
+router.post("/insert", insertCourse)
 
 module.exports = router;

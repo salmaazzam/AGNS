@@ -27,8 +27,7 @@ const CourseSchema = new Schema({
     required: true
   },
   totalHours:{
-    type: Number,
-    required: true
+    type: Number
 
   },
   ratings:{
