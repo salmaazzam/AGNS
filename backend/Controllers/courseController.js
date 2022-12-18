@@ -11,6 +11,8 @@ const getCourses = async (req, res) => {
     res.status(200).json(courses)}
 
 
+
+    
 //for Instructor to createCourse
 const createCourse = async(req,res) => {
     const { id } = req.body
@@ -60,6 +62,11 @@ const createCourse = async(req,res) => {
 
 }
 
+const insertCourse = async(req,res) => {
+  const { id } = req.body
+  const {title, price, shortSummary, InstructorName, InstructorId , subject} = req.body
+
+}
 
 //for Instructor to view his courses
 const getMyCourses = async (req, res) => {

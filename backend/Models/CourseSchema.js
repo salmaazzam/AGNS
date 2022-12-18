@@ -2,7 +2,7 @@ const { links } = require('express/lib/response');
 const mongoose = require('mongoose');
 const Exercise = require('./ExerciseSchema');
 const Instructor = require('./InstructorSchema');
-const Video = require('./videoSchema');
+const Subtitle = require('./SubtitleSchema');
 const Schema = mongoose.Schema;
 
 const CourseSchema = new Schema({
@@ -41,7 +41,7 @@ const CourseSchema = new Schema({
   },
   subtitles :{
     type:Array,
-    items:{type:Video}
+    items:{type:Subtitle}
   },
   exercises:{
     type:Array,

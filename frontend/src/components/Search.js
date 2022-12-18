@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useCoursesContext } from "../hooks/useCourseContext"
 import CourseDetails from '../components/CourseDetails'
-
+import CourseDetailsSummary from '../components/CourseDetailsSummary'
 import axios from 'axios'
 
 const Search = () =>{
@@ -96,8 +96,8 @@ return(
         <div className='SearchResult'>
             <h1>Search Results</h1>
             {courses && courses.map(course => (
-          <CourseDetails course={course} key={course._id} />
-        ))}
+          <CourseDetailsSummary course={course} key={course._id} />
+            ))}
         </div>
         
         {error && <div className="error">{error}</div>}
