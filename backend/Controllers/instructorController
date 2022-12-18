@@ -45,19 +45,19 @@ const createInstructor = async (req, res) => {
   }
   
     // add to the database
-    // try {
-    //   const salt= await bcrypt.genSalt(10)
-    //   const hash= await bcrypt.hash(password, salt)
+    try {
+      const salt= await bcrypt.genSalt(10)
+      const hash= await bcrypt.hash(password, salt)
 
-    //   const instructor = await this.create({ name,username,password:hash,email})
-    //   res.status(200).json(instructor)
-    // } catch (error) {
-    //   res.status(400).json({ error: error.message })
-    // }
-    const salt= await bcrypt.genSalt(10)
-    const hash= await bcrypt.hash(password, salt)
-    const instructor = await this.create({ name,username,password:hash,email})
-    return instructor
+      const instructor = await Instructor.create({ name,username,password:hash,email})
+      res.status(200).json(instructor)
+    } catch (error) {
+      res.status(400).json({ error: error.message })
+    }
+    // const salt= await bcrypt.genSalt(10)
+    // const hash= await bcrypt.hash(password, salt)
+    // const instructor = await this.create({ name,username,password:hash,email})
+    // return instructor
   }
 
 // delete a instructor
@@ -155,6 +155,29 @@ const updateInstructor = async (req, res) => {
 
   }
 
+  const AcceptPolicy = async(req,res)=>{
+    const {id}= req.body
+    try{
+      const instructor = await Instructor.findOneAndUpdate({_id:id},{policy:true})
+      res.status(200).json(instructor)
+    }
+    catch(error){
+      return res.status(400).json({error: error.message})
+    }
+  }
+
+  const policyStatus = async(req,res)=>{
+   const {user} = req.user
+   try{
+    const policy= await Instructor.findOne({_id:user.id}).select('policy')
+    res.status(200).json(policy)
+   }
+   catch(error){
+    return res.status(400).json({error: error.message})
+   }
+   
+  }
+
   module.exports = {
     getInstructors,
     getInstructor,
@@ -165,7 +188,9 @@ const updateInstructor = async (req, res) => {
     getRatings,
     AddRatings,
     UpdateBio,
-    UpdateEmail
+    UpdateEmail,
+    AcceptPolicy,
+    policyStatus
   }
 /*async function AddInstructorHelper (InstructorInsert){
     

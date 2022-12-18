@@ -39,7 +39,8 @@ const InstructorSchema = new Schema({
     items:{type: String}
   },
   policy:{
-    type:Boolean
+    type:Boolean,
+    default: false
   }
   
 }, { timestamps: true });

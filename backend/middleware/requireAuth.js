@@ -12,7 +12,8 @@ const requireAuth = async (req,res,next) =>{
 
     try{
         const {_id} = jwt.verify(token, process.env.SECRET) //gets the id from the token
-        req.user= await User.findOne({_id}).select('_id')
+        // req.user= await User.findOne({_id}).select('_id')
+        req.user= await User.findOne({_id})
         next() //when it goes to the next functions in the userControllers from getUser, createuser and so on
     }
     catch(error){

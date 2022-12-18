@@ -5,6 +5,7 @@ const bcrypt= require('bcrypt')
 const validator= require('validator')
 const Instructor = require('../Models/InstructorSchema'); 
 const Course = require('./CourseSchema');
+const { boolean } = require('webidl-conversions');
 
 const IndividualTraineeSchema = new Schema({
   username: {
@@ -38,7 +39,7 @@ const IndividualTraineeSchema = new Schema({
   courses:{
     type:Array,
     items:{type:Course}
-  }
+  },
 }, { timestamps: true });
 
 IndividualTraineeSchema.statics.signup = async function(firstName,lastName, username, email, password, gender) {

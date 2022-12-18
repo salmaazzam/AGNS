@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 
-const EditProfile = ()=>{
+const EditProfile = ({id})=>{
     const [bio, setBio]= useState('')
     const [email, setEmail]= useState('')
     const [emptyFields, setEmptyFields] = useState([])
@@ -9,7 +9,7 @@ const EditProfile = ()=>{
     //const api = new axios.create
 
     const BioUpdate = ()=>{
-        axios.post('/instructor/bio',{id:testID, newBio:bio}).then(res=>{
+        axios.post('/instructor/bio',{id:id, newBio:bio}).then(res=>{
             console.log("bioUpdated!")
             setBio("");
         })

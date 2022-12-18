@@ -325,3 +325,12 @@ form.signup, form.login, form.forgetpass, form.resetpass{
   width:30%
   
 }
+.policy button{
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
+}
