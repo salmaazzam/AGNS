@@ -13,7 +13,7 @@ const Forgetpass = () =>{
        
     }
     const handleClick= async () => {
-        const data={email:email}
+        /*const data={email:email}
         axios({
             method:"POST",
             url:'/auth/forgetpass',
@@ -26,7 +26,28 @@ const Forgetpass = () =>{
           .catch(error => 
                 {
                 console.log(error)
-                })
+                })*/
+     const response =await fetch('/auth/forgetpass',{
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({email})
+              })
+          
+              const json= await response.json()
+          
+              if(!response.ok){
+                  setLoading(false)
+                  setError(json.error)
+              }
+              if(response.ok){
+                  localStorage.setItem('email', JSON.stringify(json))
+          
+                  //dispatch({type: 'LOGIN', payload: json})
+          
+                  setLoading(false)
+                  alert("Email is sent successfully")
+              }
+          
     }
 
     return(

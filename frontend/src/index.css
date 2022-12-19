@@ -226,7 +226,7 @@ nav a {
   margin-left: 10px;
 }
 /* auth forms */
-form.signup, form.login, form.forgetpass, form.resetpass{
+form.signup, form.login, form.forgetpass, form.resetpass, form.changepass{
   max-width: 400px;
   margin: 40px auto;
   padding: 20px;

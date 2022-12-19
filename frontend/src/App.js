@@ -14,13 +14,14 @@ import SearchPage from './pages/SearchPage';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ResetPass from './pages/resetPass';
-import ForgetPass from './pages/forgetPas'
+import ForgetPass from './pages/forgetPass'
 import Policy from './pages/Policy';
 import Tester from './pages/tester'
 import InstructorProfile from './pages/InstructorProfile';
 import AddQuestions from './pages/AddQuestions';
 import InstructorAddCourse from './pages/InstructorAddCourse';
 import AddSubtitle from './pages/AddSubtitle';
+import Changepass from './pages/changePass';
 
 function App() {
   return (
@@ -101,6 +102,10 @@ function App() {
           <Route 
             path="/addsubtitle"
             element={<AddSubtitle />}
+          />
+          <Route 
+            path="/changepass"
+            element={<Changepass />}
           />
 
         </Routes>
