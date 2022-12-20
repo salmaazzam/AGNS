@@ -159,3 +159,5 @@ try{
 }
 
 module.exports = {signupUser, loginUser, forgetPass, changePass, resetPass}
+
+module.exports = {signupUser, loginUser, forgetPass, changePass, resetPass}
