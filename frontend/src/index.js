@@ -7,6 +7,7 @@ import { InstructorsContextProvider } from './context/InstructorsContext';
 import { CorporateTraineesContextProvider } from './context/CorporateTraineesContext';
 import { CoursesContextProvider } from './context/CoursesContext';
 import { AuthContext, AuthContextProvider } from './context/AuthContext';
+import {IndividualContextProvider} from './context/IndividualContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,7 +17,9 @@ root.render(
       <InstructorsContextProvider>
         <CorporateTraineesContextProvider>
           <CoursesContextProvider>
+            <IndividualContextProvider>
     <App />
+    </IndividualContextProvider>
           </CoursesContextProvider>
         </CorporateTraineesContextProvider>
       </InstructorsContextProvider>
@@ -24,5 +27,3 @@ root.render(
    </AuthContextProvider>
   </React.StrictMode>
 );
-
-

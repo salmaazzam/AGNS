@@ -22,6 +22,7 @@ import AddQuestions from './pages/AddQuestions';
 import InstructorAddCourse from './pages/InstructorAddCourse';
 import AddSubtitle from './pages/AddSubtitle';
 import Changepass from './pages/changePass';
+import IndividualHome from './pages/IndividualHome';
 
 function App() {
   return (
@@ -106,6 +107,10 @@ function App() {
           <Route 
             path="/changepass"
             element={<Changepass />}
+          />
+          <Route 
+            path="/individual"
+            element={<IndividualHome />}
           />
 
         </Routes>
