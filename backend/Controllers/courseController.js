@@ -66,12 +66,12 @@ const createCourse = async(req,res) => {
 //for Instructor to view his courses
 const getMyCourses = async (req, res) => {
     const { id } = req.body
-    console.log(id)
+    // console.log(id)
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such Instructor'})
       }
     const courses = await Course.find({InstructorId: id}).sort({createdAt: -1})
-    console.log(courses)
+    // console.log(courses)
     res.status(200).json(courses)}
 
 
@@ -83,7 +83,7 @@ const getMyCourses = async (req, res) => {
             return res.status(404).json({error: 'No such Instructor'})
           }
         const courses = await Course.find({InstructorId: id, $or:[{title: info },{subject: info}]}).sort({createdAt: -1})
-          console.log(courses)
+          // console.log(courses)
         res.status(200).json(courses)}
 
 

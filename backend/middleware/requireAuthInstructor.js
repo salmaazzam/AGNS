@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
-const User = require('../Models/IndividualTraineeSchema', '../Models/InstructorSchema')
+const Instructor = require('../Models/InstructorSchema')
 
-const requireAuth = async (req,res,next) =>{
+const requireAuthInstructor = async (req,res,next) =>{
     const {authorization} = req.headers //authorization here is a string which is 'Bearer fhjshfvkmlf.3nkvfnfknvk.vkvnjnlrj' so we want the token which is the 2nd part that why we split
 
     if(!authorization){
@@ -9,13 +9,15 @@ const requireAuth = async (req,res,next) =>{
     }
 
     const token= authorization.split(' ')[1]
-
+    // console.log(token)
     try{
         const {_id} = jwt.verify(token, process.env.SECRET) //gets the id from the token
         // req.user= await User.findOne({_id}).select('_id')
-
-        req.user= await User.findOne({_id})
-        console.log(req.user)
+        // console.log(_id)
+        // console.log(jwt.verify(token, process.env.SECRET))
+        // console.log("id^")
+        req.user= await Instructor.findOne({_id})
+        // console.log(req.user._id)
         next() //when it goes to the next functions in the userControllers from getUser, createuser and so on
     }
     catch(error){
@@ -24,4 +26,4 @@ const requireAuth = async (req,res,next) =>{
     }
 }
 
-module.exports= requireAuth
+module.exports= requireAuthInstructor

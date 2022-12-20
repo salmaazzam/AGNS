@@ -6,17 +6,27 @@ const EditProfile = ({id})=>{
     const [email, setEmail]= useState('')
     const [emptyFields, setEmptyFields] = useState([])
     const testID = "636e4c6ec3a1faa23d6fa918";
+    const user = JSON.parse(localStorage.getItem('user'))
+    const token = user.token
+    //console.log(token)
     //const api = new axios.create
 
     const BioUpdate = ()=>{
-        axios.post('/instructor/bio',{id:id, newBio:bio}).then(res=>{
+        axios.post('/instructor/bio',{newBio:bio},
+        {
+            headers: { Authorization: `Bearer ${token}` }
+        }).then(res=>{
             console.log("bioUpdated!")
+            console.log(res)
             setBio("");
         })
 
     }
     const EmailUpdate = ()=>{
-        axios.post('/instructor/email',{id:testID, newEmail:email}).then(res=>{
+        axios.post('/instructor/email',{ newEmail:email},
+        {
+            headers: { Authorization: `Bearer ${token}` }
+        }).then(res=>{
             console.log("EmailUpdated!")
             setEmail("");
         })

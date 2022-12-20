@@ -5,11 +5,10 @@ import { useState } from "react"
 import Axios from "axios"
 import {useLocation} from "react-router-dom";
 
-
 const AddSubtitle = () =>{
     //const {CID, subtitle, video, hours, description } = req.body
 
-    const [CID, setCID]= useState('');
+    // const [CID, setCID]= useState('');
     const [subtitle, setSubtitle]= useState('');
     const [video, setVideo]= useState('');
     const [hours, setHours]= useState('');
@@ -19,10 +18,10 @@ const AddSubtitle = () =>{
 
     const addSubtitle = async (e) => {
         e.preventDefault()
-        Axios.post("/exercise/question",{
-           CID,subtitle, video, hours, description
-            }).then(res =>{ console.log('postinggggggg exercise',res.data)
-            setCID('');
+        Axios.post("/course/insertsubtitle",{
+           CID:location.state.id,subtitle, video, hours, description
+            }).then(res =>{ console.log('posting subtitleeeee',res.data)
+            // setCID('');
             setSubtitle('')
             setVideo('')
             setHours('')

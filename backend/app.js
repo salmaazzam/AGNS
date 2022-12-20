@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 const app = express();
 const MONGO_URI="mongodb+srv://aclProj:ackProjPassword@cluster0.hjrz1bm.mongodb.net/ProjDB?retryWrites=true&w=majority"
 const port = process.env.PORT;
+// const cookieParser = require("cookie-parser");
 
 //importing 
 //Admin
@@ -51,6 +52,8 @@ app.use(bodyParser.urlencoded({
 //     res.status(200).send("You have everything installed!");
 //   });
 
+//using cookie parser
+// app.use(cookieParser());
 
 //Routing to Admin
 const AdminRoute = require("./Routes/Admin");

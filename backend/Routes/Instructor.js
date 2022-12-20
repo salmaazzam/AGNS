@@ -3,7 +3,7 @@ const router = express.Router();
 const { getInstructors, getInstructor, createInstructor, deleteInstructor, updateInstructor, setCountry, 
     getRatings, AddRatings,UpdateBio, UpdateEmail, AcceptPolicy, policyStatus} = require('../Controllers/instructorController')
 //const course = require('../Models/CourseSchema');
-const requireAuth = require("../middleware/requireAuth")
+const requireAuthInstructor = require("../middleware/requireAuthInstructor")
 
 router.get("/", getInstructors) //("/", name of the function that gets the admins);
 
@@ -11,7 +11,7 @@ router.post("/", createInstructor)
 
 router.patch("/",AcceptPolicy)
 
-router.get("/:id", getInstructor)
+router.get("/yarab", requireAuthInstructor, getInstructor)
 
 router.delete("/:id", deleteInstructor)
 
@@ -31,13 +31,15 @@ router.post("/ratings",AddRatings)
 
 router.get("/bio",UpdateBio)
 
-router.post("/bio",UpdateBio)
+router.post("/bio",requireAuthInstructor,UpdateBio)
 
 router.get("/email",UpdateEmail)
 
-router.post("/email",UpdateEmail)
+router.post("/email",requireAuthInstructor,UpdateEmail)
 
-router.get("/policy", requireAuth ,policyStatus)
+router.get("/policy", requireAuthInstructor ,policyStatus)
+
+router.get("/policies", requireAuthInstructor ,AcceptPolicy)
 
 
 

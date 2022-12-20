@@ -310,9 +310,7 @@ form.signup, form.login, form.forgetpass, form.resetpass, form.changepass{
   width:150px;
   cursor: pointer;
 }
-.EditProfile{
-  float:right;
-}
+
 .AddQuestion{
   margin-left: 100px;
   margin-right: 50px;
@@ -333,4 +331,11 @@ form.signup, form.login, form.forgetpass, form.resetpass, form.changepass{
   font-family: "Poppins";
   border-radius: 4px;
   cursor: pointer;
+}
+.InstrucProf{
+  float:left;
+  width: 65%;
+}
+.EditProfile{
+  float:right;
 }

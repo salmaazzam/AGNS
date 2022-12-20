@@ -6,7 +6,7 @@ import {useLocation} from "react-router-dom";
 
 
 const AddSubtitles = () => {
-
+    const location = useLocation();
 
     const [Subtitle, setSubtitle]= useState('');
     const [Video, setVideo]= useState('');

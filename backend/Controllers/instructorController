@@ -2,6 +2,7 @@ const Instructor = require('../Models/InstructorSchema');
 const mongoose = require('mongoose')
 const bcrypt= require('bcrypt')
 
+
 // get all instructors
 const getInstructors = async (req, res) => {
     const instructors = await Instructor.find({}).sort({createdAt: -1})
@@ -10,13 +11,15 @@ const getInstructors = async (req, res) => {
 
 // get a single instructor
 const getInstructor = async (req, res) => {
-    const { id } = req.params
+    const { _id } = req.user._id
+    // console.log({_id})
+    // console.log("id in getInstructir")
   
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
       return res.status(404).json({error: 'No such instructor'})
     }
   
-    const instructor = await Instructor.findById(id)
+    const instructor = await Instructor.findById(_id)
   
     if (!instructor) {
       return res.status(404).json({error: 'No such instructor'})
@@ -132,9 +135,16 @@ const updateInstructor = async (req, res) => {
   }
 
   const UpdateBio = async (req,res)=>{
-    const{id, newBio}= req.body
+    const { _id } = req.user._id
+    // console.log({_id})
+    const{newBio}= req.body
+
+    // if (!mongoose.Types.ObjectId.isValid(id)) {
+    //   return res.status(404).json({error: 'No such instructor'})
+    // }
+  
     try{
-      const instructor = await Instructor.findOneAndUpdate({_id:id},{biorgaphy:newBio})
+      const instructor = await Instructor.findOneAndUpdate({_id},{biorgaphy:newBio})
       res.status(200).json(instructor)
     }
     catch(error){
@@ -144,9 +154,10 @@ const updateInstructor = async (req, res) => {
   }
 
   const UpdateEmail = async (req,res)=>{
-    const{id, newEmail}= req.body
+    const { _id } = req.user._id
+    const{newEmail}= req.body
     try{
-      const instructor = await Instructor.findOneAndUpdate({_id:id},{email:newEmail})
+      const instructor = await Instructor.findOneAndUpdate({_id},{email:newEmail})
       res.status(200).json(instructor)
     }
     catch(error){
@@ -156,9 +167,9 @@ const updateInstructor = async (req, res) => {
   }
 
   const AcceptPolicy = async(req,res)=>{
-    const {id}= req.body
+    const { _id } = req.user._id
     try{
-      const instructor = await Instructor.findOneAndUpdate({_id:id},{policy:true})
+      const instructor = await Instructor.findOneAndUpdate({_id},{policy:true})
       res.status(200).json(instructor)
     }
     catch(error){
@@ -167,9 +178,10 @@ const updateInstructor = async (req, res) => {
   }
 
   const policyStatus = async(req,res)=>{
-   const {user} = req.user
+    const { _id } = req.user._id
+  //  const {user} = req.user
    try{
-    const policy= await Instructor.findOne({_id:user.id}).select('policy')
+    const policy= await Instructor.findOne({_id}).select('policy')
     res.status(200).json(policy)
    }
    catch(error){

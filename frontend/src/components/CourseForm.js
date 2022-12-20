@@ -78,11 +78,16 @@ const CourseForm = () => {
         setInstructorName('')
         setInstructorId('')
         setSubject('')
+        Navigate('/addsubtitle',{
+          state:{
+            id: res.data._id
+          }
     
     }
         ).catch(err => console.log(err))
 
-        Navigate('/addsubtitle')    
+       
+        })    
 
   }
 
