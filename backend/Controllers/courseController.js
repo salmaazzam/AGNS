@@ -65,12 +65,9 @@ const createCourse = async(req,res) => {
 
 //for Instructor to view his courses
 const getMyCourses = async (req, res) => {
-    const { id } = req.body
-    // console.log(id)
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such Instructor'})
-      }
-    const courses = await Course.find({InstructorId: id}).sort({createdAt: -1})
+    const  _id  = req.user._id
+ 
+    const courses = await Course.find({InstructorId:_id})
     // console.log(courses)
     res.status(200).json(courses)}
 
@@ -251,8 +248,17 @@ const insertSubtitle =async(req,res) =>{
 
 
 const insertCourse = async(req,res) => {
-  const { id } = req.body
-  const {title, price, shortSummary, InstructorName, InstructorId , subject} = req.body
+  const { _id } = req.user._id
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).json({error: 'No such instructor'})
+  }
+
+  const name = await Instructor.findById(_id, {name:1})
+  // console.log(instructor)
+  // const {name}= instructor.
+  console.log( name )
+  console.log("name^")
+  const {title, price, shortSummary,subject} = req.body
   const subtitles = [];
 
   // console.log("entered funccc")
@@ -267,12 +273,6 @@ const insertCourse = async(req,res) => {
   if (!shortSummary) {
     emptyFields.push('shortSummary')
   }
-  if (!InstructorName) {
-    emptyFields.push('InstructorName')
-  }
-  if (!InstructorId) {
-    emptyFields.push('InstructorId')
-  }
   if (!subject) {
     emptyFields.push('subject')
   }
@@ -280,12 +280,12 @@ const insertCourse = async(req,res) => {
     return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
   }
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).json({error: 'No such Instructor'})
   }
 
   try {
-    const course = await Course.create({ title,price,shortSummary,InstructorName,InstructorId, subject, subtitles })
+    const course = await Course.create({ title,price,shortSummary,InstructorName:name,InstructorId:_id, subject, subtitles })
     
     res.status(200).json(course)
   } catch (error) {

@@ -13,8 +13,9 @@ const InstructorHome = () => {
   const [policy,setPolicy]= useState('')
   const api = axios.create({
     baseURL: '/course/get'})
-    const {courses, dispatch} = useCoursesContext();
-    const testID = "63673640b44f1ebe24992530"
+   // const {courses, dispatch} = useCoursesContext();
+   const [courses, setCourses]= useState('')
+   const testID = "63673640b44f1ebe24992530"
     const Navigate = useNavigate();
 
      const AcceptPolicy = (e)=>{
@@ -39,6 +40,12 @@ const InstructorHome = () => {
         //  fetchCourses()
          
         // }, [dispatch])
+      axios.get('/course/get',{
+        headers: { Authorization: `Bearer ${token}` }
+    }).then(res=>{
+      setCourses(res.data)
+    })
+      
       axios.get('/instructor/policy', {
         headers: { Authorization: `Bearer ${token}` }
     }).then(res=>{
@@ -48,10 +55,11 @@ const InstructorHome = () => {
         setPolicy(res.data)
       })
 
-        api.post('/', {"id": testID }).then(res=>{
-          dispatch({type: 'SET_COURSE', payload: res.data})
-        },[dispatch])
-    })
+        // api.post('/', {"id": testID }).then(res=>{
+        //   dispatch({type: 'SET_COURSE', payload: res.data})
+        // },[dispatch])
+    }
+    )
 
   const Home =()=>{
       Navigate('/instructorProfile')

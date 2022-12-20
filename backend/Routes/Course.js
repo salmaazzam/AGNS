@@ -3,6 +3,7 @@ const router = express.Router();
 const { getCreate, getCourses, searchCourses, createCourse, getMyCourses, searchMyCourses, filterPrice, 
     filterCourses, filterMyPrice, addPreview, AddRatings, getRatings, insertCourse,insertSubtitle } = require('../Controllers/courseController')
 
+const requireAuthInstructor = require('../middleware/requireAuthInstructor')
 
 router.get("/", getCourses) 
 
@@ -28,9 +29,9 @@ router.get("/filter", getMyCourses )
 
 router.post("/filter", filterCourses)
 
-router.get("/get", getMyCourses )
+router.get("/get",requireAuthInstructor , getMyCourses )
 
-router.post("/get", getMyCourses )
+router.post("/get",requireAuthInstructor ,getMyCourses )
 
 router.get("/addPreview", addPreview )
 
@@ -49,6 +50,6 @@ router.post("/insertsubtitle", insertSubtitle)
 
 router.get("/insert", insertCourse)
 
-router.post("/insert", insertCourse)
+router.post("/insert",requireAuthInstructor ,insertCourse)
 
 module.exports = router;

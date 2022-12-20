@@ -17,7 +17,7 @@ const requireAuthInstructor = async (req,res,next) =>{
         // console.log(jwt.verify(token, process.env.SECRET))
         // console.log("id^")
         req.user= await Instructor.findOne({_id})
-        // console.log(req.user._id)
+        // console.log(req.user.name)
         next() //when it goes to the next functions in the userControllers from getUser, createuser and so on
     }
     catch(error){

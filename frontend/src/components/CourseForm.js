@@ -9,6 +9,8 @@ import {useLocation} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const CourseForm = () => {
+  const curruser = JSON.parse(localStorage.getItem('user'))
+  const token = curruser.token
   const { dispatch } = useCoursesContext()
   const { user } = useAuthContext()
 
@@ -67,17 +69,18 @@ const CourseForm = () => {
 
   const addCourse = async (e) =>{
     e.preventDefault()
-    Axios.post("/course/insert",{id:InstructorId,
-      title, price, shortSummary,
-      InstructorName, InstructorId, subject
-    
-        }).then(res =>{ console.log('postinggggggg course',res.data)
+    Axios.post("/course/insert",{
+      title, price, shortSummary,subject
+        },{
+          headers: { Authorization: `Bearer ${token}` }
+      }).then(res =>{ console.log('postinggggggg course',res.data)
         setTitle('')
         setPrice('')
         setShortSummary('')
-        setInstructorName('')
-        setInstructorId('')
+        // setInstructorName('')
+        // setInstructorId('')
         setSubject('')
+        console.log(res.data._id)
         Navigate('/addsubtitle',{
           state:{
             id: res.data._id
@@ -126,7 +129,7 @@ const CourseForm = () => {
         value={subtitles} 
         className={emptyFields.includes('subtitle') ? 'error' : ''}
       /> */}
-       <label>InstructorName:</label>
+       {/* <label>InstructorName:</label>
       <input 
         type="text" 
         onChange={(e) => setInstructorName(e.target.value)} 
@@ -139,7 +142,7 @@ const CourseForm = () => {
         onChange={(e) => setInstructorId(e.target.value)} 
         value={InstructorId} 
         className={emptyFields.includes('InstructorId') ? 'error' : ''}
-      />
+      /> */}
       {/* <label>totalHours:</label>
       <input 
         type="text" 
