@@ -46,8 +46,9 @@ const CourseSchema = new Schema({
     type:Array,
     items:{type:Exercise}
   },
-  review:{
-    type:String
+  reviews:{
+    type: Array,
+    items:{type: String}
   },
   preview :{
     type: String

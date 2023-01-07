@@ -112,10 +112,10 @@ const updateInstructor = async (req, res) => {
   }
 
   const getRatings = async(req,res)=>{
-    const {id} = req.body
+    const { _id } = req.user._id
     try{
-      const ratings = await Instructor.find({_id:id}, {rating:1})
-      res.status(200).json(ratings)
+      const {rating} = await Instructor.findById(_id)
+      res.status(200).json(rating)
     }
     catch(error){
       return res.status(400).json({error: error.message})
@@ -123,10 +123,11 @@ const updateInstructor = async (req, res) => {
   }
 
   const AddRatings = async(req,res)=>{
-    const{id, rating}= req.body
+    const { _id } = req.user._id
+    const{rating}= req.body
 
     try{
-      const instructor = await Instructor.findOneAndUpdate({_id: id}, {$push:{rating}})
+      const instructor = await Instructor.findOneAndUpdate(_id, {$push:{rating}})
       res.status(200).json(instructor);
     }
     catch(error){

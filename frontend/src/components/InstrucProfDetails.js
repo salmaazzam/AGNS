@@ -2,20 +2,38 @@ import { useInstructorsContext } from "../hooks/useInstructorsContext"
 
 // date fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import { useState } from "react"
+import axios from "axios"
+
 
 const InstrucProfDetails = ({ instructor }) => {
-  const { dispatch } = useInstructorsContext()
+  const myRatings = []
+  var ViewR = '';
 
-  const handleClick = async () => {
-    const response = await fetch('/instructor/' + instructor._id, {
-      method: 'DELETE'
-    })
-    const json = await response.json()
-
-    if (response.ok) {
-      dispatch({type: 'DELETE_INSTRUCTOR', payload: json})
-    }
+  const ViewRatings =(e)=>{
+    e.preventDefault();
+    {instructor.rating.forEach(element => {
+      myRatings.push(<p>{element}</p>)
+     // myRatings.push(<br/>)
+    })}
+    ViewR= 'we here';
   }
+  
+  if(ViewR)
+  {
+    return(
+      <div className="instructor-details">
+        <h4>{instructor.name}</h4>
+        <p><strong>Username: </strong>{instructor.username}</p>
+        <p><strong>Bio: </strong>{instructor.biorgaphy}</p>
+        <p><strong>Email: </strong>{instructor.email}</p>
+        {/* <p><strong>Ratings: </strong>{instructor.rating}</p> */}
+        <button type="button" onClick={ViewRatings}>Hide Ratings</button>
+        {myRatings}
+      </div>
+    )
+  }
+  else{
     return (
       
       <div className="instructor-details">
@@ -23,10 +41,12 @@ const InstrucProfDetails = ({ instructor }) => {
         <p><strong>Username: </strong>{instructor.username}</p>
         <p><strong>Bio: </strong>{instructor.biorgaphy}</p>
         <p><strong>Email: </strong>{instructor.email}</p>
-        <p>{formatDistanceToNow(new Date(instructor.createdAt), { addSuffix: true })}</p>
-        <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
+        {/* <p><strong>Ratings: </strong>{instructor.rating}</p> */}
+        <button type="button" onClick={ViewRatings}>View Ratings</button>
+        {myRatings}
       </div>
     )
   }
+}
   
   export default InstrucProfDetails

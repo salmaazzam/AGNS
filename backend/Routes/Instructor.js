@@ -21,13 +21,13 @@ router.get("/country", setCountry)
 
 router.post("/country", setCountry)
 
-router.get("/myRatings",getRatings)
+router.get("/myRatings",requireAuthInstructor, getRatings)
 
-router.post("/myRatings",getRatings)
+router.post("/myRatings",requireAuthInstructor, AddRatings)
 
-router.get("/ratings",AddRatings)
+//router.get("/ratings",AddRatings)
 
-router.post("/ratings",AddRatings)
+//router.post("/ratings",AddRatings)
 
 router.get("/bio",UpdateBio)
 

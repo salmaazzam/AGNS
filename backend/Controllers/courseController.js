@@ -187,8 +187,9 @@ const addPreview = async(req,res)=>{
 const getRatings = async(req,res)=>{
   const {id} = req.body
   try{
-    const rating = await Course.find({_id:id}, {ratings:1})
-    res.status(200).json(rating)
+    const  {ratings}  = await Course.findById(id)
+   // console.log(ratings)
+    res.status(200).json(ratings)
   }
   catch(error){
     return res.status(400).json({error: error.message})

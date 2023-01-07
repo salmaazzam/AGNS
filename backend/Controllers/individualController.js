@@ -28,9 +28,9 @@ const getIndiv = async (req, res) => {
     }
 
     //this returns all the info of the indiv with this id
-    const individualTrainee = await IndividualTrainee.find({_id: id},{courses : 1});
+    const{courses} = await IndividualTrainee.findById(id);
     //const courses=individualTrainee.courses
-    res.status(200).json(individualTrainee)
+    res.status(200).json(courses)
   }
 
 
