@@ -23,6 +23,7 @@ import InstructorAddCourse from './pages/InstructorAddCourse';
 import AddSubtitle from './pages/AddSubtitle';
 import Changepass from './pages/changePass';
 import IndividualHome from './pages/IndividualHome';
+import OneCourseDetails from './pages/OneCourseDetails';
 
 function App() {
   return (
@@ -104,6 +105,11 @@ function App() {
             path="/addsubtitle"
             element={<AddSubtitle />}
           />
+            <Route 
+            path="/oneCourseDetails"
+            element={<OneCourseDetails />}
+          />
+
           <Route 
             path="/changepass"
             element={<Changepass />}

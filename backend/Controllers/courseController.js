@@ -10,7 +10,11 @@ const getCourses = async (req, res) => {
   
     res.status(200).json(courses)}
 
-
+const getACourse=async(req,res)=>{
+  const {CID} = req.body;
+  const myCourse = await Course.find({_id:CID});
+  res.status(200).json(myCourse);
+}
 
     
 //for Instructor to createCourse
@@ -312,5 +316,6 @@ module.exports =
   AddRatings, 
   getRatings,
   insertCourse,
-  insertSubtitle
+  insertSubtitle,
+  getACourse
 };
