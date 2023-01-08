@@ -52,6 +52,18 @@ const CourseSchema = new Schema({
   },
   preview :{
     type: String
+  },
+  promotion:{
+    percentage: {
+      type: Number
+    }
+    ,
+    duration:{
+      type:Number
+    },
+    start:{
+      type: Date
+    }
   }
 
 

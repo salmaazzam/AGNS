@@ -17,6 +17,20 @@ const getACourse=async(req,res)=>{
 }
 
     
+const AddPromotion = async(req,res)=>{
+  console.log("insiddeee")
+  const{id, duration, percentage,start}= req.body
+  try{
+    const course = await Course.findOneAndUpdate({_id: id}, {$set:{"promotion.duration":duration, 
+    "promotion.percentage":percentage, "promotion.start":start},
+  })
+    res.status(200).json(course);
+  }
+  catch(error){
+    return res.status(400).json({error: error.message})
+  } 
+}
+
 //for Instructor to createCourse
 const createCourse = async(req,res) => {
     const { id } = req.body
@@ -317,5 +331,6 @@ module.exports =
   getRatings,
   insertCourse,
   insertSubtitle,
-  getACourse
+  getACourse,
+  AddPromotion
 };

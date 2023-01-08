@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { getCreate, getCourses, searchCourses, createCourse, getMyCourses, searchMyCourses, filterPrice, 
-    filterCourses, filterMyPrice, addPreview, AddRatings, getRatings, insertCourse,insertSubtitle,getACourse } = require('../Controllers/courseController')
+    filterCourses, filterMyPrice, addPreview, AddRatings,AddPromotion, getRatings, insertCourse,insertSubtitle,getACourse } = require('../Controllers/courseController')
 
 const requireAuthInstructor = require('../middleware/requireAuthInstructor')
 
@@ -47,8 +47,9 @@ router.post("/ratings",AddRatings)
 
 router.post("/insertsubtitle", insertSubtitle)
 
-router.post("/getACourse",getACourse);
+router.post("/getACourse",getACourse)
 
+router.post("/insertpromotion", AddPromotion)
 
 router.get("/insert", insertCourse)
 

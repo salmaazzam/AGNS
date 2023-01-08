@@ -14,6 +14,17 @@ const CourseDetailsInstructors = ({ course }) => {
   const [URL, setURL]= useState("")
   const Navigate = useNavigate();
 
+  const createPromotion = (e) =>{
+
+    e.preventDefault();
+    Navigate('/addpromotion',{
+      state:{
+        CID:course._id
+      }
+      })
+      console.log(course._id)
+  }
+
   const createExercise = (e)=>{
     e.preventDefault();
     Axios.post("/exercise",{CID:course._id}).then(res=> {
@@ -65,7 +76,8 @@ const CourseDetailsInstructors = ({ course }) => {
         <p>{formatDistanceToNow(new Date(course.createdAt), { addSuffix: true })}</p>
         <p><strong>Preview Video:</strong> </p>
         <YoutubeEmbed embedId = {course.preview}/><br/>
-        <button type="button" onClick={createExercise}>Create Exercise</button>
+        <button type="button" onClick={createExercise}>Create Exercise</button>  &nbsp;&nbsp;
+        <button type="button" onClick={createPromotion}>Add Promotion</button>
         <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
       </div>
     )
@@ -88,7 +100,8 @@ const CourseDetailsInstructors = ({ course }) => {
         value={URL}
       />
         <button type="button" onClick={AddPreview}>Add Preview</button>  &nbsp;&nbsp;
-        <button type="button" onClick={createExercise}>Create Exercise</button>
+        <button type="button" onClick={createExercise}>Create Exercise</button>  &nbsp;&nbsp;
+        <button type="button" onClick={createPromotion}>Add Promotion</button>
         <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
       </div>
     )

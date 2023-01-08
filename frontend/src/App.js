@@ -24,6 +24,7 @@ import AddSubtitle from './pages/AddSubtitle';
 import Changepass from './pages/changePass';
 import IndividualHome from './pages/IndividualHome';
 import OneCourseDetails from './pages/OneCourseDetails';
+import AddPromotion from './pages/AddPromotion';
 
 function App() {
   return (
@@ -117,6 +118,10 @@ function App() {
           <Route 
             path="/individual"
             element={<IndividualHome />}
+          />
+          <Route 
+            path="/addpromotion"
+            element={<AddPromotion />}
           />
 
         </Routes>
