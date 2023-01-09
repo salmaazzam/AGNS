@@ -17,7 +17,7 @@ Course = require('./Models/CourseSchema');
 IndividualTrainee =require('./Models/IndividualTraineeSchema');
 Guest =require('./Models/GuestSchema');
 Exercise = require('./Models/ExerciseSchema');
-
+Report =require('./Models/ReportSchema');
 
 // configurations
 // Mongo DB
@@ -85,3 +85,6 @@ app.use('/auth', loginRoutes)
 
 const ExerciseRoute = require('./Routes/Exercise');
 app.use('/exercise', ExerciseRoute)
+
+const ReportRoute = require('./Routes/Report');
+app.use('/report', ReportRoute)

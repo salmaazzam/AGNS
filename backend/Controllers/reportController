@@ -1,0 +1,29 @@
+const Report = require('../Models/ReportSchema');
+const mongoose = require('mongoose')
+
+
+//inserting a new report will be used by user
+addReport= async (req, res) => {
+    const {type, problem,userName,course, courseid} = req.body
+    console.log(userName)
+    try {
+        const report = await Report.create({ problem,type, userName, course, courseid })
+        res.status(200).json(report)
+      } catch (error) {
+        res.status(400).json({ error: error.message })
+      }
+  
+}
+
+
+// get all reports for the admin
+const getReports = async (req, res) => {
+    const reports = await Report.find({}).sort({createdAt: -1})
+  
+    res.status(200).json(reports)}
+
+
+module.exports = {
+    addReport,
+    getReports
+  }
