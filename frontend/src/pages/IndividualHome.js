@@ -1,28 +1,33 @@
 import { useEffect,useState} from "react"
-import { useCoursesContext } from "../hooks/useCourseContext"
-import {useIndividualContext} from "../hooks/useIndividualContext"
-import CourseDetailsIndividual from "../components/CourseDetailsIndividual"
-
-import axios from 'axios'
+ import axios from 'axios'
+ import CourseDetailsIndividual from '../components/CourseDetailsIndividual'
+// import { useNavigate } from "react-router-dom";
 
 const IndividualHome = () => {
-    const [courses,setCourses]= useState([])
-    // const api = axios.create({
-    //     baseURL: '/individualtrainee'})
-    
-        axios.get('/individualtrainee/639cd9ab3c28cdab5b2644e2').then(res=>{
-            setCourses(res.data)
-            console.log(((courses[0].courses)))
-          })
+    const user = JSON.parse(localStorage.getItem('user'))
+    const token = user.token
+    const [courses, setCourses]= useState('')
 
-    return(
-        <div className="MyCourses">
-            <h1><u>My Courses</u></h1>
+    useEffect(()=>{
+        axios.get('/course/getIndividualCourses',{
+            headers: { Authorization: `Bearer ${token}` }
+        }).then(res=>{
+          setCourses(res.data)   //courses is now set to the courses taken by an individual
+        })
+    })
+
+    return (
+        <div className ="individualHome">
+            <h1>Home Page</h1>
+            <div className="courses">
+           <h2>My Courses:</h2>
            {courses && courses.map(course => (
             <CourseDetailsIndividual course={course} key={course._id} />
           ))}
+           </div>
         </div>
-    )   
-}
+    )
+} 
+
 
 export default IndividualHome

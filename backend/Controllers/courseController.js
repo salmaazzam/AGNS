@@ -2,6 +2,8 @@ const Course = require('../Models/CourseSchema');
 const Instructor = require('../Models/InstructorSchema');
 const mongoose = require('mongoose');
 const Subtitle = require('../Models/SubtitleSchema');
+const IndividualTrainee = require('../Models/IndividualTraineeSchema');
+
 
 
 //for anyone to view all courses
@@ -87,7 +89,24 @@ const getMyCourses = async (req, res) => {
  
     const courses = await Course.find({InstructorId:_id})
     // console.log(courses)
-    res.status(200).json(courses)}
+    res.status(200).json(courses)
+  }
+
+//for individual to view his courses
+const getIndivCourses = async (req, res) => {
+  const _id = req.user._id
+  try{
+    const {courses}  = await IndividualTrainee.findById(_id)
+    //console.log(courses)
+    res.status(200).json(courses)
+  }
+  catch(error){
+    return res.status(400).json({error: error.message})
+  }
+}
+
+
+
 
 
     const searchMyCourses = async (req, res) => {
@@ -266,6 +285,25 @@ const insertSubtitle =async(req,res) =>{
 }
 
 
+const registerCourse = async(req,res)=>{
+  const {id,cID}=req.body
+  //const { id,cID } = req.user._id
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'No such individual'})
+  }
+  const courses =await Course.findById(cID);
+  try{
+    const individual = await IndividualTrainee.findOneAndUpdate({_id: id}, {$push:{courses}})
+    res.status(200).json(individual);
+  }
+  catch(error){
+    return res.status(400).json({error: error.message})
+  }
+
+
+}
+
+
 const insertCourse = async(req,res) => {
   const { _id } = req.user._id
   if (!mongoose.Types.ObjectId.isValid(_id)) {
@@ -320,6 +358,7 @@ module.exports =
 { getCourses, 
   createCourse, 
   getMyCourses, 
+  getIndivCourses,
   searchMyCourses, 
   searchCourses,
   filterPrice,
@@ -332,5 +371,6 @@ module.exports =
   insertCourse,
   insertSubtitle,
   getACourse,
-  AddPromotion
+  AddPromotion,
+  registerCourse
 };

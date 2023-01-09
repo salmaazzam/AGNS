@@ -136,6 +136,29 @@ header a {
   border-radius: 50%;
   color: #333;
 }
+
+.indiv-course-details {
+  background: #eeecec;
+  border-radius: 4px;
+  margin: 10px auto;
+  width: 150px;
+  padding: 15px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  margin-left:5px;
+}
+
+.indiv-course-details button {
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  width:150px;
+  cursor: pointer;
+}
+
 .course-details {
   background: #eeecec;
   border-radius: 4px;
