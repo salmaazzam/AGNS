@@ -27,6 +27,10 @@ const CorporateTraineeSchema = new Schema({
   courses:{
     type:Array,
     items:{type:Course}
+  },
+  wallet:{
+    type:Number,
+    default: 0
   }
 
 }, { timestamps: true });

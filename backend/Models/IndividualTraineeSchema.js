@@ -40,6 +40,10 @@ const IndividualTraineeSchema = new Schema({
     type:Array,
     items:{type:Course}
   },
+  wallet:{
+    type:Number,
+    default: 0
+  }
 }, { timestamps: true });
 
 IndividualTraineeSchema.statics.signup = async function(firstName,lastName, username, email, password, gender) {

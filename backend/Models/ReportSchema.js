@@ -29,8 +29,15 @@ const ReportSchema = new Schema({
     courseid:{
         type:String,
         required:true
-    }
+    },
+    comments:{
+        type:Array,
+        items:{type:String}
 
+    },
+    adminReply:{
+        type:String,
+    }
 
 }, { timestamps: true });
 
