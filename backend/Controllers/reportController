@@ -15,6 +15,18 @@ addReport= async (req, res) => {
   
 }
 
+setStatus= async (req, res) => {
+
+  const {id, newStatus} = req.body;
+  const report = await Report.findOneAndUpdate({_id: id}, { $set :{status: newStatus}
+  })
+
+  if (!report) {
+    return res.status(400).json({error: 'No such report'})
+  }
+
+  res.status(200).json(report)
+}
 
 // get all reports for the admin
 const getReports = async (req, res) => {
@@ -25,5 +37,6 @@ const getReports = async (req, res) => {
 
 module.exports = {
     addReport,
-    getReports
+    getReports,
+    setStatus
   }
