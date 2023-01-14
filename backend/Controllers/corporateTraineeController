@@ -1,11 +1,10 @@
 const CorporateTrainee = require("../Models/CorporateTraineeSchema");
 const mongoose = require('mongoose')
 const bcrypt= require('bcrypt')
-
+const Course =require("../Models/CourseSchema")
 // get all corporateTrainee
 const getCorporateTrainees = async (req, res) => {
     const corporateTrainees = await CorporateTrainee.find({}).sort({createdAt: -1})
-  
     res.status(200).json(corporateTrainees)}
 
 // get a single corporateTrainee
@@ -94,6 +93,56 @@ const updateCorporateTrainee = async (req, res) => {
     res.status(200).json(corporateTrainee)
   }
 
+//requestCourse
+  const requestCourse = async (req, res) => {
+    const { id, courseid } = req.body
+
+
+    const course = await  Course.find({_id: courseid})
+  
+    if (course) {
+     
+      const trainee = await CorporateTrainee.findOneAndUpdate({_id:id},{$addToSet:{requestedCourses:course}})
+      res.status(200).json(trainee)
+    }
+    
+  }
+
+  //ViewAll requested Courses
+  const allReqCourses= async(req,res)=>{
+    console.log("in here")
+    // const corporateTrainees = await CorporateTrainee.find({}).sort({createdAt: -1})
+    
+    // res.status(200).json(corporateTrainees)
+    const requestedCourses= await CorporateTrainee.find({},{requestedCourses:1});
+    if(!requestedCourses)
+  {
+    res.status(400).json("no Courses");
+  }
+    res.status(200).json(requestedCourses);
+  }
+
+
+  const AcceptReq = async (req, res) => {
+   const {C_ID,Corp_ID}=req.body;
+    
+      //const corp =  await CorporateTrainee.findByIdAndUpdate(Corp_ID,{requestedCourses: {$pull:{_id:C_ID}}});
+      // select your doc in moongo
+      const course = await Course.findById(C_ID);
+      const {requestedCourses} = await CorporateTrainee.findById(Corp_ID);
+      console.log(requestedCourses);
+      var index = requestedCourses.indexOf(course);
+      console.log(index)        
+          requestedCourses.splice(index,1);
+          console.log(requestedCourses)
+        await CorporateTrainee.findByIdAndUpdate(Corp_ID, {requestedCourses:requestedCourses})
+          const corp2 =  await CorporateTrainee.findByIdAndUpdate(Corp_ID,{$addToSet:{courses:course}});
+          res.status(200).json(corp2)
+      
+        
+        
+      
+  }
   const setCountry = async (req, res) => {
     const {id, country} = req.body;
      const corporateTrainee = await corporateTrainee.findOneAndUpdate({_id: id}, { $set :{country: country}
@@ -112,7 +161,10 @@ const updateCorporateTrainee = async (req, res) => {
     createCorporateTrainee,
     deleteCorporateTrainee,
     updateCorporateTrainee,
-    setCountry
+    setCountry,
+    requestCourse,
+    allReqCourses,
+    AcceptReq
   } 
 
 /*async function AddCorpTraineehelper(corpTrainee){

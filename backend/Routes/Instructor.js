@@ -4,10 +4,12 @@ const { getInstructors, getInstructor, createInstructor, deleteInstructor, updat
     getRatings, AddRatings,UpdateBio, UpdateEmail, AcceptPolicy, policyStatus} = require('../Controllers/instructorController')
 //const course = require('../Models/CourseSchema');
 const requireAuthInstructor = require("../middleware/requireAuthInstructor")
+const requireAuthAdmin = require("../middleware/requireAuthAdmin")
+
 
 router.get("/", getInstructors) //("/", name of the function that gets the admins);
 
-router.post("/", createInstructor)
+router.post("/",requireAuthAdmin, createInstructor)
 
 router.patch("/",AcceptPolicy)
 

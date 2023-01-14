@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {getAdmins, getAdmin, createAdmin, deleteAdmin, updateAdmin} = require('../Controllers/adminController');
 
+
 router.get("/", getAdmins) //("/", name of the function that gets the admins);
 
 router.get("/:id", getAdmin)

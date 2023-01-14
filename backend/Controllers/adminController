@@ -1,5 +1,6 @@
 const Admin = require('../Models/AdminSchema');
 const mongoose = require('mongoose')
+const bcrypt= require('bcrypt')
 
 // get all admins
 const getAdmins = async (req, res) => {
@@ -45,8 +46,11 @@ const createAdmin = async (req, res) => {
   }
   
     // add to the database
+
     try {
-      const admin = await Admin.create({ name,username, password })
+      const salt= await bcrypt.genSalt(10)
+      const hash= await bcrypt.hash(password, salt)
+      const admin = await Admin.create({ name,username, password:hash })
       res.status(200).json(admin)
     } catch (error) {
       res.status(400).json({ error: error.message })
@@ -89,12 +93,32 @@ const updateAdmin = async (req, res) => {
     res.status(200).json(admin)
   }
 
+
+  const updateCourses = async (req, res) => {
+    const { id } = req.params
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({error: 'No such admin'})
+    }
+  
+    const admin = await Admin.findOneAndUpdate({_id: id}, {
+      ...req.body
+    })
+  
+    if (!admin) {
+      return res.status(400).json({error: 'No such admin'})
+    }
+  
+    res.status(200).json(admin)
+  }
+
   module.exports = {
     getAdmins,
     getAdmin,
     createAdmin,
     deleteAdmin,
-    updateAdmin
+    updateAdmin,
+    updateCourses
   }
 
   //create an admin
