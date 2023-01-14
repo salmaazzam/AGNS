@@ -3,6 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext"
 import YoutubeEmbed from "../components/YoutubeEmbed";
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // date fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
@@ -32,7 +33,10 @@ const CourseDetailsIndividual = ({ course }) => {
   return(
     <div className="indiv-course-details">
       <p><strong>Title: </strong>{course.title}</p>
-      <button type= "button" >Show Details</button>
+      {/* <button type= "button" >Show Details</button> */}
+      <Link to="/moreCourseDetailsIndiv"
+          state ={{id: course._id}}
+          >Show More</Link>
     </div>
   )
 

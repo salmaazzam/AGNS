@@ -15,6 +15,7 @@ const OneCourseDetails =()=>{
    const [subtitles,setSubtitles]=useState([])
    const [exercises,setExercises]=useState([])
    const [price,setPrice]=useState('')
+   const [promotion,setPromotion]=useState('')
    const Navigate =useNavigate();
 
    const Back = () =>{
@@ -25,7 +26,7 @@ const OneCourseDetails =()=>{
         Axios.post("/course/getACourse",{
             CID:location.state.id
              }).then(res =>{ console.log('get the course details',res.data)
-             setCourse(res.data)
+             //setCourse(res.data)
              setTitle(res.data[0].title) 
              setSubject(res.data[0].subject)
              setInstructorName(res.data[0].instructorName)
@@ -33,6 +34,7 @@ const OneCourseDetails =()=>{
              setSubtitles(res.data[0].subtitles)
              setExercises(res.data[0].exercises)
              setPrice(res.data[0].price)
+             setPromotion(res.data[0].promotion)
          }
              ).catch(err => console.log(err))
     
@@ -52,6 +54,7 @@ const OneCourseDetails =()=>{
             <p><strong>Subtitles: </strong>{subtitles}</p>
             <p><strong>Exercises: </strong>{exercises}</p>
             <p><strong>Price: </strong>{price}</p>
+            <p><strong>Promotion: </strong>{promotion}</p>
             <button type ="button" onClick = {Back}>Home Page</button>
 
         </div>

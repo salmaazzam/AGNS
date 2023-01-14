@@ -1,4 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import MoreCourseDetailsIndiv from './pages/MoreCourseDetailsIndiv';
 
 
 // pages and components
@@ -122,6 +123,10 @@ function App() {
           <Route 
             path="/addpromotion"
             element={<AddPromotion />}
+          />
+          <Route 
+            path="/moreCourseDetailsIndiv"
+            element={<MoreCourseDetailsIndiv />}
           />
 
         </Routes>

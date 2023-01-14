@@ -39,7 +39,7 @@ const createCourse = async(req,res) => {
     const {title, price, shortSummary, subtitles, InstructorName, InstructorId, totalHours , subject} = req.body
 
     let emptyFields = []
-
+   const {name} = await Instructor.findById(id);
   if (!title) {
     emptyFields.push('title')
   }
@@ -74,8 +74,8 @@ const createCourse = async(req,res) => {
   }
 
   try {
-    const course = await Course.create({ title,price,shortSummary, subtitles,InstructorName,InstructorId, totalHours, subject })
-    res.status(200).json(course)
+      const course = await Course.create({ title,price,shortSummary, subtitles,InstructorName:name,InstructorId, totalHours, subject })   ;
+       res.status(200).json(course);
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
