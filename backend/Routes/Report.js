@@ -12,7 +12,7 @@ router.post("/indiv",requireAuthIndividual,addReport)
 router.post("/corp",requireAuthCorporate,addReport)
 router.get("/allreports",getReports)
 router.post("/updatereport",setStatus)
-router.get("/getMyReports", getMyReports)
+router.get("/getMyReports",requireAuthIndividual, getMyReports)
 
 
 

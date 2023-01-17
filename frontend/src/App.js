@@ -41,6 +41,7 @@ import CorporateHome from './pages/CorporateHome';
 import PopularCoursesCorp from './pages/PopularCourseCorp'
 import SearchPageCorp from './pages/SearchPageCorp';
 import AdminReports from './pages/AdminReports';
+import MyReports from './pages/MyReports'
 
 
 function App() {
@@ -203,6 +204,10 @@ function App() {
           <Route 
             path="/admin/reports"
             element={<AdminReports/>}
+          />
+          <Route 
+            path="/myReports"
+            element={<MyReports/>}
           />
           
         </Routes>
