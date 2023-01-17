@@ -1,17 +1,17 @@
 # AGNS
 ## Table of Contents
-- [Motivation](https://github.com/salmaazzam/AGNS/new/main?readme=1#motivation)
-- [Build Status](https://github.com/salmaazzam/AGNS/new/main?readme=1#build-status)
-- [Screenshots](https://github.com/salmaazzam/AGNS/new/main?readme=1#screenshots)
-- [Tech/Framework Used](https://github.com/salmaazzam/AGNS/new/main?readme=1#techframework-used)
-- [Features](https://github.com/salmaazzam/AGNS/new/main?readme=1#features)
-- [Code Examples](https://github.com/salmaazzam/AGNS/new/main?readme=1#code-examples)
-- [Installation](https://github.com/salmaazzam/AGNS/new/main?readme=1#installation)
-- [API reference](https://github.com/salmaazzam/AGNS/new/main?readme=1#api-reference)
-- [Tests](https://github.com/salmaazzam/AGNS/new/main?readme=1#tests)
-- [How to use](https://github.com/salmaazzam/AGNS/new/main?readme=1#how-to-use)
-- [Credits](https://github.com/salmaazzam/AGNS/new/main?readme=1#credits)
-- [License](https://github.com/salmaazzam/AGNS/new/main?readme=1#license)
+- [Motivation](https://github.com/salmaazzam/AGNS/edit/main/README.md#motivation)
+- [Build Status](https://github.com/salmaazzam/AGNS/edit/main/README.md#build-status)
+- [Screenshots](https://github.com/salmaazzam/AGNS/edit/main/README.md#screenshots)
+- [Tech/Framework Used](https://github.com/salmaazzam/AGNS/edit/main/README.md#techframework-used)
+- [Features](https://github.com/salmaazzam/AGNS/edit/main/README.md#features)
+- [Code Examples](https://github.com/salmaazzam/AGNS/edit/main/README.md#code-examples)
+- [Installation](https://github.com/salmaazzam/AGNS/edit/main/README.md#installation)
+- [API reference](https://github.com/salmaazzam/AGNS/edit/main/README.md#api-reference)
+- [Tests](https://github.com/salmaazzam/AGNS/edit/main/README.md#tests)
+- [How to use](https://github.com/salmaazzam/AGNS/edit/main/README.md#how-to-use)
+- [Credits](https://github.com/salmaazzam/AGNS/edit/main/README.md#credits)
+- [License](https://github.com/salmaazzam/AGNS/edit/main/README.md#license)
 
 ## Motivation
 This project is created for the Course CSEN704 Advanced Computer lab in GUC.
