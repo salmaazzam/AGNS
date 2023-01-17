@@ -29,6 +29,26 @@ The project aims to teach students:
 
 
 ## Screenshots
+Guest Home Page
+![image](https://user-images.githubusercontent.com/83556231/213033692-98c2496a-6747-4a06-ac98-f481eff82354.png)
+
+LogIn Page 
+![image](https://user-images.githubusercontent.com/83556231/213033785-339b3ec2-cb49-49d0-9d9f-81cdfa69e49f.png)
+
+Individual Trainee Home Page
+![image](https://user-images.githubusercontent.com/83556231/213033864-25909074-6f4e-4ec4-99a6-8c09fd72711b.png)
+
+My Course Details
+![image](https://user-images.githubusercontent.com/83556231/213033904-6d0a3b2f-32a6-41bf-af62-3338e1ca05cf.png)
+
+Reporting a Problem
+![image](https://user-images.githubusercontent.com/83556231/213033957-ab4af3e6-e329-48a8-950a-d6bce304ca8b.png)
+
+Watch Video While Taking Notes
+![image](https://user-images.githubusercontent.com/83556231/213034103-ad00b7b9-f896-41a9-baf8-53280e8da583.png)
+
+
+
 
 ## Tech/Framework used
 - [MongoDB](https://www.mongodb.com/)
@@ -71,6 +91,87 @@ Our system has 4 types of users:
 
 
 ## Code examples
+Method within the course Controller to check whether or not i am registered for this course to dictate if i should see a register button or not in the frontend
+``` node
+const InMyCourses = async(req,res)=>{
+  const { _id } = req.user._id
+  const {CID}= req.body;
+  var result=null;
+  const ct= await CorporateTrainee.findById(_id);
+  if(ct){
+      const {courses} =await CorporateTrainee.findById(_id);
+      for(var i=0;i<courses.length;i++){
+        console.log(courses[i]._id.valueOf())
+        if(courses[i]._id.valueOf() == CID){
+          result=courses[i]
+        }
+      }
+  }
+  else{
+    const it= await IndividualTrainee.findById(_id);
+    if(it){
+    const {courses} =await IndividualTrainee.findById(_id);
+    console.log(courses.length)
+    for(var i=0;i<courses.length;i++){
+      console.log(courses[i]._id.valueOf())
+      if((courses[i]._id.valueOf()) == CID){
+        console.log(i +"hiiii")
+        result=courses[i]
+      }
+    }
+  }
+
+  }
+  res.status(200).json(result);
+ 
+}
+
+```
+
+3 methods that are used to :
+1. instantiate an empty array of type Exercise 
+2. Populate the array with objects of type Question
+3. Once done with all the questions, append the Exercise Array onto the pre-existing Exercises in this specific course
+``` node
+const CreateEx = async(req,res)=>{
+    const {CID}= req.body
+    const Answers= []
+    try{
+        const exercise = await Exercise.create({CID, Answers})
+        var {NumOfExercises}= await Course.findById(CID);
+        NumOfExercises++;
+        await Course.updateOne({_id:CID},{$set :{NumOfExercises:NumOfExercises}});
+        res.status(200).json(exercise)
+    }
+    catch(error){
+        res.status(400).json({ error: error.message })
+    }
+}
+
+const AddQuestion = async (req, res) => {
+  const {question, answer1, answer2, answer3, answer4, solution ,ExId} = req.body
+  const answers = [answer1,answer2,answer3,answer4]
+
+  try {
+    const newQ = await Question.create({Question:question, Answers: answers, CorrectAnswer:solution})
+    const exercise = await Exercise.findOneAndUpdate({_id: ExId}, {$push:{Exercise:newQ}})
+    res.status(200).json(exercise)
+
+}
+catch(error){
+    res.status(400).json({ error: error.message })
+}
+  }
+
+  const SubmitExercise = async(req,res)=>{
+    const{_id}= req.body
+    const exercise = await Exercise.findById(_id);
+    const course = await Course.findByIdAndUpdate({_id:exercise.CID},{$push:{exercises:exercise}})
+    res.status(200).json(course)
+
+  }
+```
+ 
 
 ## Installation
 install using npm </br>
