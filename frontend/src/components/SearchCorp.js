@@ -1,11 +1,11 @@
-import { useState } from 'react'
 import { useCoursesContext } from "../hooks/useCourseContext"
 import CourseDetails from '../components/CourseDetails'
 import CourseDetailsSummaryUser from '../components/CourseDetailsSummaryUser'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
-const SearchUser = () =>{
+const SearchCorp = () =>{
 const {dispatch} = useCoursesContext()
 const [info, setSearchKey]= useState('') 
 const [courses, setCourses]= useState('')
@@ -45,7 +45,6 @@ const handleSubmit = async (e) => {
         setCourses(res.data)
         setSearchKey('')
     })
-    
 
 //    const response = await fetch ('/course', {
 //     method: 'POST',
@@ -62,8 +61,8 @@ const handleSubmit = async (e) => {
 
         
     }
-    const home = ()=>{
-        Navigate("/individual")
+    const home=()=>{
+        Navigate('/corpHome')
     }
 return(
     <form className = "Search">
@@ -113,4 +112,4 @@ return(
 
 }
 
-export default SearchUser
+export default SearchCorp

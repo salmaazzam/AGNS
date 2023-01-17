@@ -3,7 +3,8 @@ import axios from "axios"
 import CourseDetails from '../components/CourseDetails'
 import { useNavigate } from "react-router-dom"
 
-const PopularCourses = () => {
+
+const PopularCoursesCorp = () => {
    const [courses, setCourses] = useState('')
    const Navigate = useNavigate();
     
@@ -12,13 +13,13 @@ const PopularCourses = () => {
     })
 
     const home =()=>{
-      Navigate('/individual')
+      Navigate('/corpHome')
     }
 
     return (
     <div className="Home" >
       <div className="CourseInfo">
-     <button type="button" onClick={home}>Back</button>
+        <button type="button" onClick={home}>Back</button>
      <h3>Most Popular Courses:</h3>
      <p>
     
@@ -33,4 +34,4 @@ const PopularCourses = () => {
     )
 }
 
-export default PopularCourses
+export default PopularCoursesCorp

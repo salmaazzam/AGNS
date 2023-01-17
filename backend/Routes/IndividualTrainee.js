@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const requireAuthIndividual = require("../middleware/requireAuthIndividual")
-const {getIndividual } = require('../Controllers/individualController')
+const {getIndividual,RequestRefund } = require('../Controllers/individualController')
 
 
 router.get("/", (req, res)=>{
@@ -11,7 +11,7 @@ router.get("/", (req, res)=>{
 
 router.get("/yarab2", requireAuthIndividual, getIndividual)
 
-
+router.post("/refund",requireAuthIndividual,RequestRefund)
 
 
 

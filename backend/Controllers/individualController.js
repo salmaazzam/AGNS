@@ -63,5 +63,6 @@ const RequestRefund = async(req,res )=>{
   module.exports = {
     getIndividual,
     refundWallet,
-    ViewWallet
+    ViewWallet,
+    RequestRefund
   }

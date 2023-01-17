@@ -38,6 +38,8 @@ import SearchPageUser from './pages/SearchPageUser';
 import OneCourseUser from './pages/OneCourseUser';
 import PayForCourse from './pages/PayForCourse'
 import CorporateHome from './pages/CorporateHome';
+import PopularCoursesCorp from './pages/PopularCourseCorp'
+import SearchPageCorp from './pages/SearchPageCorp';
 
 
 function App() {
@@ -186,8 +188,16 @@ function App() {
             element={<PayForCourse />}
           />
           <Route 
-            path="/corporate"
+            path="/corpHome"
             element={<CorporateHome />}
+          />
+          <Route 
+            path="/popularCoursesCorp"
+            element={<PopularCoursesCorp />}
+          />
+          <Route 
+            path="/searchPageCorp"
+            element={<SearchPageCorp/>}
           />
           
         </Routes>

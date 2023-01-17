@@ -14,7 +14,7 @@ const createToken = ({_id}) => {
 
 const loginUser = async(req, res) => {
     const {username, password}= req.body
-
+    var type;
     try{
       if(!username || !password){
         throw Error("All fields must be filled")
@@ -27,9 +27,11 @@ const loginUser = async(req, res) => {
           throw Error("Incorrect password instructor")
         }
         else{
+          type=1
         //create token
         const token = createToken(instructor._id)
-        res.status(200).json({username, token})
+        res.status(200).json({username,type, token})
+
         }
       }
       else{
@@ -40,9 +42,11 @@ const loginUser = async(req, res) => {
             throw Error("Incorrect password trainee")
           }
           else{
+           type=2
           //create token
           const token = createToken(indivTrainee._id)
-          res.status(200).json({username, token})
+          res.status(200).json({username,type, token})
+
           }
         }
         else{
@@ -53,9 +57,11 @@ const loginUser = async(req, res) => {
               throw Error("Incorrect password trainee")
             }
             else{
+             type=3
             //create token
             const token = createToken(corpTrainee._id)
-            res.status(200).json({username, token})          }
+            res.status(200).json({username,type, token})
+          }
           }
           else{
             const admin =await Admin.findOne({username:username})
@@ -65,9 +71,10 @@ const loginUser = async(req, res) => {
                 throw Error("Incorrect password admin")
               } 
               else{
+                type=4
             //create token
             const token = createToken(admin._id)
-            res.status(200).json({username, token})
+            res.status(200).json({username,type, token})
 
               }
             }

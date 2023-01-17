@@ -107,7 +107,18 @@ const getIndivCourses = async (req, res) => {
   }
 }
 
-
+//for individual to view his courses
+const getCorpCourses = async (req, res) => {
+  const _id = req.user._id
+  try{
+    const {courses}  = await CorporateTrainee.findById(_id)
+    //console.log(courses)
+    res.status(200).json(courses)
+  }
+  catch(error){
+    return res.status(400).json({error: error.message})
+  }
+}
 
 
 
@@ -419,6 +430,34 @@ const InMyCourses = async(req,res)=>{
   res.status(200).json(result);
  
 }
+
+const InMyCoursesCORP = async(req,res)=>{
+  const { _id } = req.user._id
+  const {CID}= req.body;
+  const ct= await CorporateTrainee.findById(_id);
+  if(ct){
+      //res.status(200).json("true");
+      const {courses} =await CorporateTrainee.findById(_id);
+      const foundct = courses.find(item => item._id == CID)
+      res.status(200).json(foundct);
+  }
+  else{
+    //res.status(200).json("false");
+    const it= await CorporateTrainee.findById(_id);
+    if(it){
+    const {courses} =await CorporateTrainee.findById(_id);
+    const foundit = courses.find(item => item._id == CID)
+    res.status(200).json(foundit);
+   }
+    else{
+      res.status(200).json(null);
+
+    }
+
+  }
+
+}
+
 const MyProgress= async(req,res) => {
 const {_id}= req.user._id
 const {CID}= req.body
@@ -468,34 +507,72 @@ const getCurrExercise =async (req,res)=>{
   
 }
 
+const getCurrExerciseCORP =async (req,res)=>{
+  const{_id}= req.user._id
+  const{CID}= req.body
+  const {courses}= await CorporateTrainee.findById(_id)
+  for(var i =0; i<courses.length;i++)
+  {
+    
+    if(courses[i]._id==CID)
+    {
+      if(courses[i].NumOfExercises==0)
+      {
+       // res.status(200).json("NO EXERCISES")
+        console.log("exercises fadya?")
+      }
+      else{
+        const curr = courses[i].NumOfExercisesDone
+        // console.log(courses[i].exercises[curr])
+        res.status(200).json(courses[i].exercises[curr].Exercise);
+      }
+     
+      }
+  }
+  
+}
+
 const SolveCurrExercise =async (req,res)=>{
   const{_id}= req.user._id
-  const{CID,answer}= req.body
+  const{CID}= req.body
 
   const {courses}= await IndividualTrainee.findById(_id)
   for(var i =0; i<courses.length;i++)
   {
     if(courses[i]._id==CID)
     {
-      if(courses[i].correct==answer)
-      {
-        res.status(200).json("correct");
-      }
-      else
-      {
-        res.status(200).json(courses[i].correct);
-      }
+      
       var NumOfExercisesDone = courses[i].NumOfExercisesDone
       NumOfExercisesDone++;
       courses[i].NumOfExercisesDone= NumOfExercisesDone;
    }
   }
-  await individual.updateOne({_id:_id},{$set:{courses:courses}})
+  await IndividualTrainee.updateOne({_id:_id},{$set:{courses:courses}})
+  
+}
+
+const SolveCurrExerciseCORP =async (req,res)=>{
+  const{_id}= req.user._id
+  const{CID}= req.body
+
+  const {courses}= await CorporateTrainee.findById(_id)
+  for(var i =0; i<courses.length;i++)
+  {
+    if(courses[i]._id==CID)
+    {
+      
+      var NumOfExercisesDone = courses[i].NumOfExercisesDone
+      NumOfExercisesDone++;
+      courses[i].NumOfExercisesDone= NumOfExercisesDone;
+   }
+  }
+  await CorporateTrainee.updateOne({_id:_id},{$set:{courses:courses}})
   
 }
 
 module.exports = 
 { getCourses, 
+  SolveCurrExerciseCORP,
   createCourse, 
   getMyCourses, 
   getIndivCourses,
@@ -518,5 +595,8 @@ module.exports =
   InMyCourses,
   MyProgress,
   getCurrExercise,
-  SolveCurrExercise
+  SolveCurrExercise,
+  getCorpCourses,
+  InMyCoursesCORP,
+  getCurrExerciseCORP
 };

@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const { getCreate, getCourses, searchCourses, createCourse, getMyCourses,getIndivCourses, searchMyCourses, filterPrice, 
     filterCourses, PopularCourses,filterMyPrice, addPreview, AddRatings,AddPromotion, getRatings, insertCourse,
-    registerCourse,insertSubtitle,getACourse,getSubtitles, InMyCourses,MyProgress,SolveCurrExercise,getCurrExercise } = require('../Controllers/courseController')
+    registerCourse,insertSubtitle,getACourse,getSubtitles, InMyCourses,MyProgress,SolveCurrExercise,getCurrExercise,getCorpCourses,InMyCoursesCORP,getCurrExerciseCORP,SolveCurrExerciseCORP } = require('../Controllers/courseController')
 
 const requireAuthInstructor = require('../middleware/requireAuthInstructor')
 const requireAuthIndividual = require("../middleware/requireAuthIndividual")
-
+const requireAuthCorporate = require("../middleware/requireAuthCorporate")
 
 router.get("/", getCourses) 
 
@@ -42,9 +42,13 @@ router.post("/get",requireAuthInstructor ,getMyCourses )
 
 router.get("/getIndividualCourses",requireAuthIndividual , getIndivCourses )
 
+router.get("/getCorpCourses",requireAuthCorporate , getCorpCourses )
+
 router.get("/addPreview", addPreview )
 
 router.post("/addPreview",addPreview )
+
+
 
 router.get("/myRatings",getRatings)
 
@@ -68,11 +72,17 @@ router.post("/insert",requireAuthInstructor ,insertCourse)
 
 router.post("/canIRegister",requireAuthIndividual,InMyCourses)
 
+router.post("/canIRequest",requireAuthCorporate,InMyCoursesCORP)
+
 router.post("/register",requireAuthIndividual ,registerCourse)
 
 router.post("/getEx",requireAuthIndividual,getCurrExercise)
 
+router.post("/getExCorp",requireAuthCorporate,getCurrExerciseCORP)
+
 router.post("/solve",requireAuthIndividual,SolveCurrExercise)
+
+router.post("/solveCorp",requireAuthCorporate,SolveCurrExerciseCORP)
 
 
 module.exports = router;
