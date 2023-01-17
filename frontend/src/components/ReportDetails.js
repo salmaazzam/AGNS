@@ -11,6 +11,8 @@ const ReportDetails = ({ report }) => {
         <br />
         </p>
         <p> <strong>Problem : </strong>{report.problem}</p>
+        <br />
+        <p> <strong>Status : </strong>{report.status}</p>
       </div>
     )
  

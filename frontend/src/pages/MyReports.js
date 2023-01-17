@@ -4,6 +4,7 @@ import EditProfile from '../components/EditProfile'
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import ReportDetails from '../components/ReportDetails'
 
 
 const MyReports =()=>{
@@ -19,6 +20,7 @@ const MyReports =()=>{
     }
     ).then(res=>{
         setReports(res.data)
+
     })
     
     const back =()=>{
@@ -30,6 +32,9 @@ const MyReports =()=>{
         <p><strong>My Reports</strong></p>
         <button type="button" onClick={back}>Back</button>
         <div className="Report Details">
+        {reports&&reports.map(report=>(
+                  <ReportDetails report={report} key={report._id} />
+            ))}
         </div>
        </div>
 

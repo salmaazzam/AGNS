@@ -26,7 +26,7 @@ const OneCourseCorp =()=>{
 };
 const Request = async (e) =>{
     e.preventDefault()
-    Axios.post("corporatetrainee/requestcourse",{
+    Axios.post("/corporatetrainee/requestcourse",{
         courseid:courseID
         },{
           headers: { Authorization: `Bearer ${token}` }

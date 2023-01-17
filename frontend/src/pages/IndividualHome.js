@@ -25,11 +25,16 @@ const IndividualHome = () => {
         Navigate('/searchPageUser')
     }
 
+    const reports =()=>{
+        Navigate('/myReports')
+    }
+
     return (
         <div className ="individualHome">
             <h1>Home Page</h1>
             <button type="button" onClick={popular}>Most Popular Courses</button> &nbsp;&nbsp;
-            <button type="button" onClick={search}>Search For Courses</button>
+            <button type="button" onClick={search}>Search For Courses</button> &nbsp;&nbsp;
+            <button type="button" onClick={reports}>View Past Reports</button>
             <div className="courses">
            <h2>My Courses:</h2>
            {courses && courses.map(course => (
