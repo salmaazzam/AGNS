@@ -100,15 +100,15 @@ try{
   const coTrainee = await Trainee.findOne({username:username});
   if(instructor){
     const inst= await Instructor.findOneAndUpdate({username:username},{password: hashedPassword})
-    res.status(200).json(inst)
+    res.status(200).json(inst,{type:1})
   }
   if(indTrainee){
     const indtrainee= await User.findOneAndUpdate({username:username},{password: hashedPassword})
-    res.status(200).json(indtrainee)
+    res.status(200).json(indtrainee,{type:1})
   }
   if(coTrainee){
     const cotrainee= await Trainee.findOneAndUpdate({username:username},{password: hashedPassword})
-    res.status(200).json(cotrainee)
+    res.status(200).json(cotrainee,{type:1})
   }
    
   if (!instructor && !indTrainee && !coTrainee) {
@@ -157,6 +157,8 @@ try{
   res.status(400).json({error: error.message})
 }
 }
+
+
 
 module.exports = {signupUser, loginUser, forgetPass, changePass, resetPass}
 

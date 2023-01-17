@@ -27,19 +27,21 @@ const CourseDetailsInstructors = ({ course }) => {
 
   const createExercise = (e)=>{
     e.preventDefault();
-    Axios.post("/exercise",{CID:course._id}).then(res=> {
-      //console.log('creating exercise',res)
-    // Navigate('/addquestions'
+    Axios.post("/exercise",
+    {CID:course._id}).then(res=> {
     console.log( res.data._id)
-   // console.log("^ EXID")
     Navigate('/addquestions',{
-  state:{
+    state:{
     id: res.data._id
   }
 })
   }).catch(err => console.log(err))
-    
-  }
+  // Navigate('/addquestions',{
+  //   state:{
+  //     id: course._id
+  // }})
+
+}
 
   const handleClick = async () => {
     if(!user){

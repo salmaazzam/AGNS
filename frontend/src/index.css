@@ -332,6 +332,21 @@ form.signup, form.login, form.forgetpass, form.resetpass, form.changepass{
   width: 100%;
   position: absolute;
 }
+.video-responsiveTwo {
+  overflow: hidden;
+  padding-bottom: 40%;
+  padding-right: 0%;
+  position: relative;
+  height: 0;
+}
+
+.video-responsiveTwo iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
 .course-details button {
   background: var(--primary);
   border: 0;
@@ -385,4 +400,32 @@ form.signup, form.login, form.forgetpass, form.resetpass, form.changepass{
 select{
 
   font-size: 20px;
+}
+
+#text {
+  display: block;
+  width: 80%;
+  background-color: white;
+  color: #021652;
+  border: 2px solid #3ba9f4;
+  border-radius: 2px;
+  resize: none;
+  margin-bottom: 35px;
+  height: 200px;
+  padding: 10px;
+  font-size: 20px;
+}
+
+#filename {
+  width: calc(100% - 200px);
+  border: 2px solid #3ba9f4;
+  border-radius: 2px;
+  background-color: white;
+  color: #052a53;
+  padding: 0 10px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  margin-right: 20px;
+  width:60%;
 }

@@ -5,6 +5,7 @@ import CourseDetailsInstructor from '../components/CourseDetailsInstructor'
 // import CourseForm from "../components/CourseForm"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { addISOWeekYears } from "date-fns/esm";
 
 const InstructorHome = () => {
   const user = JSON.parse(localStorage.getItem('user'))
@@ -15,10 +16,16 @@ const InstructorHome = () => {
     baseURL: '/course/get'})
    // const {courses, dispatch} = useCoursesContext();
    const [courses, setCourses]= useState('')
+   const [newPass, setNewPass]= useState('')
    const testID = "63673640b44f1ebe24992530"
     const Navigate = useNavigate();
 
      const AcceptPolicy = (e)=>{
+      axios.post("/instructor/changePassword",{newPass:newPass},{
+        headers: { Authorization: `Bearer ${token}` }
+    })
+
+
       e.preventDefault()
       axios.get('/instructor/policies', {
         headers: { Authorization: `Bearer ${token}` }
@@ -91,6 +98,20 @@ const InstructorHome = () => {
           <p>Accept Policy First</p>
           <div className="policy">
           <form className="policySubmit" onSubmit = {AcceptPolicy}>
+          <input 
+        type="text" 
+        onChange={(e) => setNewPass(e.target.value)} 
+        value={newPass}
+        placeholder="Enter New Password"
+        required
+      />            
+       <input 
+        type="text" 
+        // onChange={(e) => setNewPass2(e.target.value)} 
+        // value={newPass2}
+        placeholder="Confirm New Password"
+        required
+      />      
           <input type="checkbox" id="policy" name="policy" value="policy" required/>
           <button>Accept Policy</button>
           </form>

@@ -258,7 +258,7 @@ const AddRatings = async(req,res)=>{
 const insertSubtitle =async(req,res) =>{
   const {CID, subtitle, video, hours, description } = req.body
   let emptyFields = []
-
+  const link = video.replace("www.youtube.com/watch?v=", "www.youtube.com/embed/");
 
   if (!CID) {
     emptyFields.push('CID')
@@ -282,7 +282,7 @@ const insertSubtitle =async(req,res) =>{
   if (!mongoose.Types.ObjectId.isValid(CID)) {
     return res.status(404).json({error: 'No such Course'})
   }
-  const Subtitle1=await Subtitle.create({subtitle,video,description, hours})
+  const Subtitle1=await Subtitle.create({subtitle,link,description, hours})
 
   try {
     const course = await Course.findOneAndUpdate({_id: CID}, {$push:{subtitles:Subtitle1}})
@@ -320,7 +320,7 @@ const registerCourse = async(req,res)=>{
     console.log(moneyOwed);
     const inst= await Instructor.updateOne({_id:courses.InstructorId},{$set :{moneyOwed:moneyOwed}})
     const course= await Course.updateOne({_id:cID},{$set :{enrolled:enrolled}});
-    const individual = await IndividualTrainee.findOneAndUpdate(_id , {$addToSet:{courses:course}})
+    const individual = await IndividualTrainee.findOneAndUpdate(_id , {$addToSet:{courses:courses}})
     res.status(200).json(individual);
   }
   catch(error){
@@ -393,21 +393,21 @@ const InMyCourses = async(req,res)=>{
   if(ct){
       //res.status(200).json("true");
       const {courses} =await CorporateTrainee.findById(_id);
-      const foundct = courses.find(item => item._id.valueOf()== CID)
+      const foundct = courses.find(item => item._id == CID)
       res.status(200).json(foundct);
   }
   else{
     //res.status(200).json("false");
     const it= await IndividualTrainee.findById(_id);
-   // if(it){
+    if(it){
     const {courses} =await IndividualTrainee.findById(_id);
-    const foundit = courses.find(item => item._id.valueOf()== CID)
+    const foundit = courses.find(item => item._id == CID)
     res.status(200).json(foundit);
-   // }
-    // else{
-    //   res.status(200).json(null);
+   }
+    else{
+      res.status(200).json(null);
 
-    // }
+    }
 
   }
  // console.log((courses[0]._id.valueOf()));  //returns an array
@@ -428,6 +428,81 @@ const InMyCourses = async(req,res)=>{
    // const res = null
   }
   //res.status(200).json(res);
+}
+
+const MyProgress= async(req,res) => {
+const {_id}= req.user._id
+const {CID}= req.body
+
+const {courses} = await IndividualTrainee.findById(_id);
+
+  var progress =0;
+  for(var i =0; i<courses.length;i++)
+  {
+    if(courses[i]._id==CID)
+    {
+     
+    const done = courses[i].NumOfExercisesDone
+    const total = courses[i].NumOfExercises
+    if(total!=0)
+    {
+      progress= (done/total)*100
+    }
+    }
+  }
+ res.status(212).json(progress)
+
+}
+
+const getCurrExercise =async (req,res)=>{
+  const{_id}= req.user._id
+  const{CID}= req.body
+
+  const {courses}= await IndividualTrainee.findById(_id)
+  for(var i =0; i<courses.length;i++)
+  {
+    if(courses[i]._id==CID)
+    {
+      if(courses[i].NumOfExercises==0)
+      {
+        res.status(200).json("NO EXERCISES")
+      }
+      else{
+        const curr = courses[i].NumOfExercisesDone
+        console.log(curr)
+        console.log(courses[i].exercises[curr])
+        res.status(200).json(courses[i].exercises);
+      }
+     
+      }
+  }
+  
+}
+
+const SolveCurrExercise =async (req,res)=>{
+  const{_id}= req.user._id
+  const{CID,answer}= req.body
+
+  const {courses}= await IndividualTrainee.findById(_id)
+  for(var i =0; i<courses.length;i++)
+  {
+    if(courses[i]._id==CID)
+    {
+      if(courses[i].correct==answer)
+      {
+        res.status(200).json("correct");
+      }
+      else
+      {
+        res.status(200).json(courses[i].correct);
+      }
+      var NumOfExercisesDone = courses[i].NumOfExercisesDone
+      NumOfExercisesDone++;
+      courses[i].NumOfExercisesDone= NumOfExercisesDone;
+   }
+  }
+  await individual.updateOne({_id:_id},{$set:{courses:courses}})
+  
 }
 
 module.exports = 
@@ -451,5 +526,8 @@ module.exports =
   registerCourse,
   PopularCourses,
   getSubtitles,
-  InMyCourses
+  InMyCourses,
+  MyProgress,
+  getCurrExercise,
+  SolveCurrExercise
 };

@@ -13,7 +13,7 @@ const AddSubtitle = () =>{
     const [video, setVideo]= useState('');
     const [hours, setHours]= useState('');
     const [description, setDescription]= useState('');
-
+    const Navigate = useNavigate();
     const location = useLocation()
 
     const addSubtitle = async (e) => {
@@ -29,9 +29,10 @@ const AddSubtitle = () =>{
         
         }
             ).catch(err => console.log(err))
+    }
 
-
-
+    const finish = async(e)=>{
+        Navigate("/instructor")
 
     }
 
@@ -56,7 +57,8 @@ const AddSubtitle = () =>{
             
 
 
-                <button type = "button" onClick={addSubtitle}>Add Subtitle</button>
+                <button type = "button" onClick={addSubtitle}>Add Subtitle</button> &nbsp;&nbsp;&nbsp;
+                <button type = "button" onClick={finish}>Finish Course</button>
 
 
             </form>

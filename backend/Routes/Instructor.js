@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { getInstructors, getInstructor, createInstructor, deleteInstructor, updateInstructor, setCountry, 
-    getRatings, AddRatings,UpdateBio, UpdateEmail, AcceptPolicy, policyStatus} = require('../Controllers/instructorController')
+    getRatings, AddRatings,UpdateBio, UpdateEmail, AcceptPolicy, policyStatus,ChangePassword} = require('../Controllers/instructorController')
 //const course = require('../Models/CourseSchema');
 const requireAuthInstructor = require("../middleware/requireAuthInstructor")
 const requireAuthAdmin = require("../middleware/requireAuthAdmin")
@@ -42,6 +42,8 @@ router.post("/email",requireAuthInstructor,UpdateEmail)
 router.get("/policy", requireAuthInstructor ,policyStatus)
 
 router.get("/policies", requireAuthInstructor ,AcceptPolicy)
+
+router.post("/changePassword",requireAuthInstructor,ChangePassword)
 
 
 

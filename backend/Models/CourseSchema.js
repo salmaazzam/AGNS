@@ -27,8 +27,8 @@ const CourseSchema = new Schema({
     required: true
   },
   totalHours:{
-    type: Number
-
+    type: Number,
+    default:0
   },
   ratings:{
     type:Array,
@@ -44,7 +44,8 @@ const CourseSchema = new Schema({
   },
   exercises:{
     type:Array,
-    items:{type:Exercise}
+    items:{type:Exercise},
+    default:[]
   },
   reviews:{
     type: Array,

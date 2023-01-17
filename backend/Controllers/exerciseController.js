@@ -10,9 +10,9 @@ const CreateEx = async(req,res)=>{
     const Answers= []
     try{
         const exercise = await Exercise.create({CID, Answers})
-        const {NumOfExercises}= await Course.findById(CID);
+        var {NumOfExercises}= await Course.findById(CID);
         NumOfExercises++;
-        const course = await Course.findByIdAndUpdate(CID,NumOfExercises)
+        await Course.updateOne({_id:CID},{$set :{NumOfExercises:NumOfExercises}});
         res.status(200).json(exercise)
     }
     catch(error){
@@ -35,7 +35,16 @@ catch(error){
 }
   }
 
+  const SubmitExercise = async(req,res)=>{
+    const{_id}= req.body
+    const exercise = await Exercise.findById(_id);
+    const course = await Course.findByIdAndUpdate({_id:exercise.CID},{$push:{exercises:exercise}})
+    res.status(200).json(course)
+
+  }
+
 module.exports = {
         CreateEx,
-        AddQuestion
+        AddQuestion,
+        SubmitExercise
   } 

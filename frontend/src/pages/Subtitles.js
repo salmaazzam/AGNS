@@ -1,17 +1,20 @@
-import subtitle from "../components/subtitle"
+
 import {useLocation} from "react-router-dom";
+import SubtitleDetails from '../components/SubtitleDetails'
 
 const Subtitles = ()=>{
     const location = useLocation()
-    const subtitleArray= location.state.id
-    console.log(subtitleArray)
-
+  //  const [subtitleArray, setArray]= useState([]);
+    //setArray(location.state.id)
+    const subtitleArray = location.state.id
+ 
     return(
         <div className="Subtitles">
-            
-           { subtitleArray&&subtitleArray.map(subtitleIndex=>(
-            <subtitle subtitleInput={subtitleIndex}/>
+            <p>
+           { subtitleArray && subtitleArray.map(subtitleInput => (
+            <SubtitleDetails subtitleInput={subtitleInput} key= {subtitleInput._id}/>
            ))}
+           </p>
         </div>
     )
 }

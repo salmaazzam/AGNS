@@ -54,8 +54,16 @@ const Register = ()=>{
                  },{
                     headers: { Authorization: `Bearer ${token}` }
                 }).then(res=>{
-                    setMyCourse(res.data)
-                    //console.log(res.data)
+                    
+                    if(myCourse)
+                    {
+                        console.log("mine")
+                        setMyCourse(res.data)
+                    }
+                    else{
+                        console.log("not mine")
+                        setMyCourse(null)
+                    }
                  }).catch(err=>{
                     console.log(err)
                  })
@@ -63,7 +71,6 @@ const Register = ()=>{
             
     
    })
-  // const {title}= course.title;
 
    if(myCourse)
    {

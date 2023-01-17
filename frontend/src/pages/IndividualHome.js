@@ -1,12 +1,14 @@
 import { useEffect,useState} from "react"
  import axios from 'axios'
  import CourseDetailsIndividual from '../components/CourseDetailsIndividual'
+import { useNavigate } from "react-router-dom"
 // import { useNavigate } from "react-router-dom";
 
 const IndividualHome = () => {
     const user = JSON.parse(localStorage.getItem('user'))
     const token = user.token
     const [courses, setCourses]= useState('')
+    const Navigate = useNavigate();
 
     useEffect(()=>{
         axios.get('/course/getIndividualCourses',{
@@ -16,9 +18,18 @@ const IndividualHome = () => {
         })
     })
 
+    const popular =()=>{
+        Navigate('/popularCourses')
+    }
+    const search =()=>{
+        Navigate('/searchPageUser')
+    }
+
     return (
         <div className ="individualHome">
             <h1>Home Page</h1>
+            <button type="button" onClick={popular}>Most Popular Courses</button> &nbsp;&nbsp;
+            <button type="button" onClick={search}>Search For Courses</button>
             <div className="courses">
            <h2>My Courses:</h2>
            {courses && courses.map(course => (

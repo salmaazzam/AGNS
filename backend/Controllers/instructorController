@@ -191,6 +191,21 @@ const updateInstructor = async (req, res) => {
    
   }
 
+  const ChangePassword =async(req,res)=>{
+    const {_id}= req.user._id
+    const{newPass}= req.body
+    try{
+      const salt= await bcrypt.genSalt(10);
+      const hash= await bcrypt.hash(newPass, salt);
+
+      const instructor = await Instructor.updateOne({_id:_id},{$set :{password:hash}})
+      res.status(200).json("success")
+    }
+    catch{
+      return res.status(400).json({error: error.message})
+    }
+  }
+
   module.exports = {
     getInstructors,
     getInstructor,
@@ -203,7 +218,8 @@ const updateInstructor = async (req, res) => {
     UpdateBio,
     UpdateEmail,
     AcceptPolicy,
-    policyStatus
+    policyStatus,
+    ChangePassword
   }
 /*async function AddInstructorHelper (InstructorInsert){
     

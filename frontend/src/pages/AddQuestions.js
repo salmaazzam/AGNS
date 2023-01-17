@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Axios from "axios"
 import {useLocation} from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 
 const AddQuestions = () =>{
@@ -13,11 +13,11 @@ const AddQuestions = () =>{
     const [Answer4, setanswer4]= useState('');
     const [Correct, setAnswer]= useState('');
     const location = useLocation()
+    const Navigate = useNavigate();
 
     const submitQuestion = async (e) => {
-        console.log("SALOMA NONI AYOYA")
-        console.log(location)
         e.preventDefault()
+        console.log(Correct)
         Axios.post("/exercise/question",{
             question:Question, answer1:Answer1, answer2:Answer2,
              answer3:Answer3, answer4:Answer4, solution:Correct ,ExId:location.state.id
@@ -34,6 +34,13 @@ const AddQuestions = () =>{
 
 
 
+    }
+
+    const finishExercise = async(e)=>{
+        e.preventDefault()
+        Axios.post("/exercise/submit",{_id:location.state.id}).then(
+            Navigate("/instructor")
+        )
     }
 
     return(
@@ -59,13 +66,14 @@ const AddQuestions = () =>{
                 
                 <select name="correctanswer" id="correctanswer"  
                 value={Correct} onChange={(e) => setAnswer(e.target.value)}>
-                    <option value="A">Answer A</option>
-                    <option value="B">Answer B</option>
-                    <option value="C">Answer C</option>
-                    <option value="D">Answer D</option>
+                    <option value="0">Answer A</option>
+                    <option value="1">Answer B</option>
+                    <option value="2">Answer C</option>
+                    <option value="3">Answer D</option>
                 </select>
 
-                <button type = "button" onClick={submitQuestion}>Add Question!</button>
+                <button type = "button" onClick={submitQuestion}>Add Question!</button>&nbsp;&nbsp;&nbsp;
+                <button type = "button" onClick={finishExercise}>Submit Exercise</button>
 
 
             </form>

@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom'
 import { useLogout } from '../hooks/useLogout'
 import { useAuthContext } from '../hooks/useAuthContext'
+import { useNavigate } from "react-router-dom";
 
 const Topbar= () => {
+  const Navigate = useNavigate();
   const {logout} = useLogout()
   const { user } = useAuthContext() 
   const handleClick = () =>{
    logout()
+   Navigate("/")
   }
 
   return(
