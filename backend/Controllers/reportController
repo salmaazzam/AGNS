@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 
 
 //inserting a new report will be used by user
-addReport= async (req, res) => {
-    const {type, problem,userName,course, courseid} = req.body
+const addReport= async (req, res) => {
+    const {type, problem,userID,course, courseid} = req.body
     console.log(userName)
     try {
-        const report = await Report.create({ problem,type, userName, course, courseid })
+        const report = await Report.create({ problem,type, userID, course, courseid })
         res.status(200).json(report)
       } catch (error) {
         res.status(400).json({ error: error.message })
@@ -15,14 +15,14 @@ addReport= async (req, res) => {
   
 }
 
-setStatus= async (req, res) => {
+const setStatus= async (req, res) => {
 
   const {id, newStatus} = req.body;
   const report = await Report.findOneAndUpdate({_id: id}, { $set :{status: newStatus}
   })
 
   if (!report) {
-    return res.status(400).json({error: 'No such report'})
+    res.status(400).json({error: 'No such report'})
   }
 
   res.status(200).json(report)
@@ -34,9 +34,17 @@ const getReports = async (req, res) => {
   
     res.status(200).json(reports)}
 
+const getMyReports = async (req, res)=>{
+  const {id}= req.body
+  const reports = await Report.findById(id)
+  res.status(200).json(reports)
+}
+
+
 
 module.exports = {
     addReport,
     getReports,
-    setStatus
+    setStatus,
+    getMyReports
   }

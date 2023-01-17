@@ -18,7 +18,7 @@ const ReportSchema = new Schema({
         default: 'unseen'
         
     },
-    userName:{
+    userID:{
         type:String,
         required:true
     },

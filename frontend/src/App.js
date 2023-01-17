@@ -26,6 +26,17 @@ import Changepass from './pages/changePass';
 import IndividualHome from './pages/IndividualHome';
 import OneCourseDetails from './pages/OneCourseDetails';
 import AddPromotion from './pages/AddPromotion';
+import CorpCourseRequests from './pages/CorpCourseRequests';
+import SubmitReport from './pages/SubmitReport';
+import AdminViewReports from './pages/AdminViewReports';
+import AdminCourses from './pages/AdminCourses';
+import AddPromotionAdmin from './pages/AddPromotionAdmin';
+import PopularCourses from './pages/PopularCourses';
+import Exercise from './pages/Exercise';
+import Subtitles from './pages/Subtitles';
+import SearchPageUser from './pages/SearchPageUser';
+import OneCourseUser from './pages/OneCourseUser';
+import PayForCourse from './pages/PayForCourse'
 
 function App() {
   return (
@@ -128,7 +139,51 @@ function App() {
             path="/moreCourseDetailsIndiv"
             element={<MoreCourseDetailsIndiv />}
           />
-
+           <Route 
+            path="/admin/courseReq"
+            element={<CorpCourseRequests />}
+          />
+          <Route 
+            path="/submitreport"
+            element={<SubmitReport />}
+          />
+          <Route 
+            path="/adminreport"
+            element={<AdminViewReports/>}
+          />
+          <Route 
+            path="/adminCourses"
+            element={< AdminCourses/>}
+          />
+          <Route 
+            path="/addpromotionAdmin"
+            element={<AddPromotionAdmin />}
+          />
+          <Route 
+            path="/popularCourses"
+            element={<PopularCourses />}
+          />
+          <Route 
+            path="/exercise"
+            element={<Exercise />}
+          />
+          <Route 
+            path="/videos"
+            element={<Subtitles />}
+          />
+          <Route 
+            path="/searchPageUser"
+            element={< SearchPageUser />}
+          />
+          <Route 
+            path="/oneCourseUser"
+            element={<OneCourseUser />}
+          />
+          <Route 
+            path="/register"
+            element={<PayForCourse />}
+          />
+          
         </Routes>
 
 

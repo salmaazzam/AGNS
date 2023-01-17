@@ -1,13 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const { getCreate, getCourses, searchCourses, createCourse, getMyCourses,getIndivCourses, searchMyCourses, filterPrice, 
-    filterCourses, filterMyPrice, addPreview, AddRatings,AddPromotion, getRatings, insertCourse,registerCourse,insertSubtitle,getACourse } = require('../Controllers/courseController')
+    filterCourses, PopularCourses,filterMyPrice, addPreview, AddRatings,AddPromotion, getRatings, insertCourse,
+    registerCourse,insertSubtitle,getACourse,getSubtitles, InMyCourses } = require('../Controllers/courseController')
 
 const requireAuthInstructor = require('../middleware/requireAuthInstructor')
 const requireAuthIndividual = require("../middleware/requireAuthIndividual")
 
 
 router.get("/", getCourses) 
+
+router.get("/popularCourses",PopularCourses)
 
 router.post("/", searchCourses) 
 
@@ -49,6 +52,8 @@ router.get("/ratings",AddRatings)
 
 router.post("/ratings",AddRatings)
 
+router.get("/getSubtitle",getSubtitles)
+
 router.post("/insertsubtitle", insertSubtitle)
 
 router.post("/getACourse",getACourse)
@@ -59,8 +64,8 @@ router.get("/insert", insertCourse)
 
 router.post("/insert",requireAuthInstructor ,insertCourse)
 
-//router.get("/register",requireAuthInstructor ,registerCourse)
-//router.post('/register',registerCourse)
-router.post("/register",requireAuthInstructor ,registerCourse)
+router.post("/canIRegister",requireAuthIndividual,InMyCourses)
+
+router.post("/register",requireAuthIndividual ,registerCourse)
 
 module.exports = router;

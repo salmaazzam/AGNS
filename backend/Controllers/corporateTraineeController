@@ -114,7 +114,7 @@ const updateCorporateTrainee = async (req, res) => {
     // const corporateTrainees = await CorporateTrainee.find({}).sort({createdAt: -1})
     
     // res.status(200).json(corporateTrainees)
-    const requestedCourses= await CorporateTrainee.find({},{requestedCourses:1});
+    const {requestedCourses}= await CorporateTrainee.find({},{requestedCourses:1});
     if(!requestedCourses)
   {
     res.status(400).json("no Courses");
@@ -155,6 +155,7 @@ const updateCorporateTrainee = async (req, res) => {
      res.status(200).json(instructor)
    }
 
+ 
   module.exports = {
     getCorporateTrainees,
     getCorporateTrainee,

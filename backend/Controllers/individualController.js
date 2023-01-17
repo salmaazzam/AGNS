@@ -2,6 +2,7 @@ const IndividualTrainee = require('../Models/IndividualTraineeSchema');
 const mongoose = require('mongoose')
 const bcrypt= require('bcrypt')
 const Course = require('../Models/CourseSchema');
+const Refunds = require('../Models/RefundSchema');
 
 
 // fro testing 
@@ -38,8 +39,29 @@ const getIndividual = async (req, res) => {
   res.status(200).json(individual)
 }
 
+const refundWallet= async(req,res)=>{
+  const {id, amount}= req.body
+  const {wallet}= await corporateTrainee.findById(id)
+  wallet+=amount
+  const user = await corporateTrainee.findByIdAndUpdate(id, wallet)
+  res.status(200).json(user)
+ }
 
+ const ViewWallet = async(req,res)=>{
+  const{_id}= req.user._id
+  const {wallet}= await corporateTrainee.findById(id)
+  res.status(200).json(wallet)
+ }
 
+const RequestRefund = async(req,res )=>{
+  const {_id}= req.user._id
+  const {cID}=req.body
+
+  const {refunds} = await Refunds.find({});
+  
+}
   module.exports = {
-    getIndividual
+    getIndividual,
+    refundWallet,
+    ViewWallet
   }

@@ -1,4 +1,5 @@
 const Exercise = require("../Models/ExerciseSchema");
+const Course = require("../Models/CourseSchema");
 const Question = require("../Models/QuestionSchema")
 const mongoose = require('mongoose');
 
@@ -9,6 +10,9 @@ const CreateEx = async(req,res)=>{
     const Answers= []
     try{
         const exercise = await Exercise.create({CID, Answers})
+        const {NumOfExercises}= await Course.findById(CID);
+        NumOfExercises++;
+        const course = await Course.findByIdAndUpdate(CID,NumOfExercises)
         res.status(200).json(exercise)
     }
     catch(error){

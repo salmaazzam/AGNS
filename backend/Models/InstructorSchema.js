@@ -41,6 +41,10 @@ const InstructorSchema = new Schema({
   policy:{
     type:Boolean,
     default: false
+  },
+  moneyOwed:{
+    type:Number,
+    default:0
   }
   
 }, { timestamps: true });

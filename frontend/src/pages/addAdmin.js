@@ -25,14 +25,17 @@ const AddAdmin = () => {
     return (
     
      <div className="admin">
-      <div className="admins">
+      
+      <div className="admins" >
         <h3>All admins:</h3>
         {admins && admins.map(admin => (
           <AdminDetails admin={admin} key={admin._id} />
         ))}
         </div>
         <AdminForm />
+        
       </div>
+      
     
     )
 }

@@ -4,7 +4,7 @@ const Exercise = require('./ExerciseSchema');
 const Instructor = require('./InstructorSchema');
 const Subtitle = require('./SubtitleSchema');
 const Schema = mongoose.Schema;
-
+const Question =require('./QuestionSchema')
 const CourseSchema = new Schema({
   title: {
     type: String,
@@ -64,10 +64,35 @@ const CourseSchema = new Schema({
     start:{
       type: Date
     }
-  }
+  },
+  Exam: {
+      type:Array,
+      items:{type:Question}
 
-
-
+  },
+  
+  NumOfExercises:{
+    type:Number,
+    default: 0
+  },
+  NumOfExercisesDone:{
+    type:Number,
+    default: 0
+  },
+  enrolled:{
+    type:Number,
+    default:0
+  },
+  averageRating:{
+    type:Number,
+    defaut:0
+  },
+  
+    videos:{
+      type:Array,
+      items:{type:String}
+    }
+  
 }, { timestamps: true });
 
 const Course = mongoose.model('Course', CourseSchema);

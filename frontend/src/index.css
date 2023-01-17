@@ -32,9 +32,18 @@ header a {
   margin: 0 auto;
 }
 .admin {
+  margin-left: 0px;
   display: grid;
   grid-template-columns: 3fr 1fr;
-  gap: 100px;
+  gap: 10px;
+}
+.sidebar{
+  width: 20px;
+  border-color: #333;
+  border-style: solid;
+  border-width: 5px;
+
+  
 }
 .admin-details {
   background: #ffffff;
@@ -372,4 +381,8 @@ form.signup, form.login, form.forgetpass, form.resetpass, form.changepass{
 }
 .EditProfile{
   float:right;
+}
+select{
+
+  font-size: 20px;
 }

@@ -3,6 +3,8 @@ const Instructor = require('../Models/InstructorSchema');
 const mongoose = require('mongoose');
 const Subtitle = require('../Models/SubtitleSchema');
 const IndividualTrainee = require('../Models/IndividualTraineeSchema');
+const CorporateTrainee = require('../Models/CorporateTraineeSchema');
+const User = require('../Models/CorporateTraineeSchema')|| require('../Models/IndividualTraineeSchema');
 
 
 
@@ -74,7 +76,7 @@ const createCourse = async(req,res) => {
   }
 
   try {
-      const course = await Course.create({ title,price,shortSummary, subtitles,InstructorName:name,InstructorId, totalHours, subject })   ;
+      const course = await Course.create({ title,price,shortSummary, subtitles,InstructorName:name,InstructorId, totalHours, subject})   ;
        res.status(200).json(course);
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -237,8 +239,15 @@ const AddRatings = async(req,res)=>{
   const{id, ratings}= req.body
 
   try{
-    const course = await Course.findOneAndUpdate({_id: id}, {$push:{ratings}})
-    res.status(200).json(course);
+
+    const {averageRating} =await Course.findById({id})
+    const courseold= await Course.findById({id})
+    const newRating = ((averageRating*courseold.ratings.length)+ratings)/courseold.ratings.length
+
+
+    const course = await Course.findOneAndUpdate({_id: id}, {$push:{ratings }})
+    const course2 = await Course.findOneAndUpdate({_id: id}, {averageRating:newRating})
+    res.status(200).json(course2);
   }
   catch(error){
     return res.status(400).json({error: error.message})
@@ -284,21 +293,42 @@ const insertSubtitle =async(req,res) =>{
 
 }
 
+const getSubtitles = async(req,res)=>{
+  const{CID}= req.body
+
+  const {subtitles}= await Course.findById(CID)
+  res.status(200).json(subtitles)
+}
+
 
 const registerCourse = async(req,res)=>{
-  const {id,cID}=req.body
+  const{_id}=req.user._id
+  const {cID}=req.body
   //const { id,cID } = req.user._id
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(404).json({error: 'No such individual'})
   }
   const courses =await Course.findById(cID);
   try{
-    const individual = await IndividualTrainee.findOneAndUpdate({_id: id}, {$push:{courses}})
+    var {enrolled} =await Course.findById(cID);
+    console.log(enrolled);
+    enrolled++;
+    console.log(enrolled);
+    var {moneyOwed}= await Instructor.findById(courses.InstructorId)
+    console.log(moneyOwed);
+    moneyOwed+=courses.price;
+    console.log(moneyOwed);
+    const inst= await Instructor.updateOne({_id:courses.InstructorId},{$set :{moneyOwed:moneyOwed}})
+    const course= await Course.updateOne({_id:cID},{$set :{enrolled:enrolled}});
+    const individual = await IndividualTrainee.findOneAndUpdate(_id , {$addToSet:{courses:course}})
     res.status(200).json(individual);
   }
   catch(error){
     return res.status(400).json({error: error.message})
   }
+
+
+
 
 
 }
@@ -310,11 +340,10 @@ const insertCourse = async(req,res) => {
     return res.status(404).json({error: 'No such instructor'})
   }
 
-  const name = await Instructor.findById(_id, {name:1})
+  const {name} = await Instructor.findById(_id)
   // console.log(instructor)
   // const {name}= instructor.
   console.log( name )
-  console.log("name^")
   const {title, price, shortSummary,subject} = req.body
   const subtitles = [];
 
@@ -352,7 +381,54 @@ const insertCourse = async(req,res) => {
 }
 
 
+const PopularCourses = async(req,res) => {
+    const popCourses = await Course.find({}).sort({enrolled: -1})
+    res.status(200).json(popCourses)
+}
 
+const InMyCourses = async(req,res)=>{
+  const { _id } = req.user._id
+  const {CID}= req.body;
+  const ct= await CorporateTrainee.findById(_id);
+  if(ct){
+      //res.status(200).json("true");
+      const {courses} =await CorporateTrainee.findById(_id);
+      const foundct = courses.find(item => item._id.valueOf()== CID)
+      res.status(200).json(foundct);
+  }
+  else{
+    //res.status(200).json("false");
+    const it= await IndividualTrainee.findById(_id);
+   // if(it){
+    const {courses} =await IndividualTrainee.findById(_id);
+    const foundit = courses.find(item => item._id.valueOf()== CID)
+    res.status(200).json(foundit);
+   // }
+    // else{
+    //   res.status(200).json(null);
+
+    // }
+
+  }
+ // console.log((courses[0]._id.valueOf()));  //returns an array
+  //const f= courses.find(item => item._id.valueOf()== CID)
+  //console.log(f)
+  //var bool = false;
+  //for(var i=0; i<courses.length;i++)
+  {
+    //if(courses[i]._id.valueOf()== CID)
+       // bool = true;
+  }
+  //if(bool)
+  {
+    //const res = courses
+  }
+  //else
+  {
+   // const res = null
+  }
+  //res.status(200).json(res);
+}
 
 module.exports = 
 { getCourses, 
@@ -372,5 +448,8 @@ module.exports =
   insertSubtitle,
   getACourse,
   AddPromotion,
-  registerCourse
+  registerCourse,
+  PopularCourses,
+  getSubtitles,
+  InMyCourses
 };

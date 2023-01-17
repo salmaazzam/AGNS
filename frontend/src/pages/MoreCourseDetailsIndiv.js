@@ -23,6 +23,7 @@ const MoreCourseDetailsIndiv=()=>{
     const [preview, setPreview] = useState('')
     const [promotion, setPromotion] = useState('')
     const [result,setResult]=useState('')
+    const [Currexercise,SetCurrExercise]=useState('')
 
     const Navigate =useNavigate()
 
@@ -30,7 +31,19 @@ const MoreCourseDetailsIndiv=()=>{
    const Back = () =>{
     Navigate('/individual')
 };
+const Report = () =>{
+    Navigate('/submitreport')
+};
 
+const Exercise = ()=>{
+    Navigate("/exercise")
+}
+
+const Videos = ()=>{
+    Navigate("/videos",{state:{
+        id:subtitles}
+      })
+}
    useEffect(()=>{
         Axios.post("/course/getACourse",{
             CID:location.state.id
@@ -53,6 +66,7 @@ const MoreCourseDetailsIndiv=()=>{
              setReviews(res.data[0].reviews)
              setPreview(res.data[0].preview)
              setPromotion(res.data[0].promotion)
+             //SetCurrExercise(res.data[0].NumOfExercisesDone)
          }
              ).catch(err => console.log(err))
     
@@ -77,7 +91,11 @@ const MoreCourseDetailsIndiv=()=>{
             <p><strong>Subject: </strong>{subject}</p>
             <p><strong>Total Hours: </strong>{totalHours}</p>
             </p>
-            <button type ="button" onClick = {Back}>Home Page</button>
+            <button type ="button" onClick = {Back}>Home Page</button> &nbsp;&nbsp;
+            <button type ="button" onClick = {Report}>Report a Problem</button> &nbsp;&nbsp;
+            <button type ="button" onClick = {Exercise}>Solve Exercise</button>  &nbsp;&nbsp;
+            <button type ="button" onClick = {Videos}>View Course Videos</button> 
+
 
         </div>
     )
