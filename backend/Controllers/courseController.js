@@ -433,30 +433,24 @@ const InMyCourses = async(req,res)=>{
 
 const InMyCoursesCORP = async(req,res)=>{
   const { _id } = req.user._id
-  const {CID}= req.body;
-  const ct= await CorporateTrainee.findById(_id);
-  if(ct){
-      //res.status(200).json("true");
-      const {courses} =await CorporateTrainee.findById(_id);
-      const foundct = courses.find(item => item._id == CID)
-      res.status(200).json(foundct);
-  }
-  else{
-    //res.status(200).json("false");
-    const it= await CorporateTrainee.findById(_id);
-    if(it){
-    const {courses} =await CorporateTrainee.findById(_id);
-    const foundit = courses.find(item => item._id == CID)
-    res.status(200).json(foundit);
+   const {CID}= req.body;
+   var result=null;
+   const it= await CorporateTrainee.findById(_id);
+   //console.log(it)
+   if(it){
+   const {requestedCourses} =await CorporateTrainee.findById(_id);
+   console.log((requestedCourses[0][0]._id).valueOf())
+   for(var i=0;i<requestedCourses.length;i++){
+     console.log(((requestedCourses[i][0])._id).valueOf()+"loop")
+     if((requestedCourses[i][0]._id.valueOf()) == CID){
+       console.log(i +"hiiii")
+       result=requestedCourses[i]
+     }
    }
-    else{
-      res.status(200).json(null);
-
-    }
-
-  }
-
-}
+ }
+   res.status(200).json(result);
+ 
+ }
 
 const MyProgress= async(req,res) => {
 const {_id}= req.user._id

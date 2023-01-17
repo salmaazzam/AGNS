@@ -96,19 +96,18 @@ const updateCorporateTrainee = async (req, res) => {
   }
 
 //requestCourse
-  const requestCourse = async (req, res) => {
-    const { id, courseid } = req.body
+const requestCourse = async (req, res) => {
+  const{id}= req.user._id
 
-
-    const course = await  Course.find({_id: courseid})
-  
-    if (course) {
-     
-      const trainee = await CorporateTrainee.findOneAndUpdate({_id:id},{$addToSet:{requestedCourses:course}})
-      res.status(200).json(trainee)
-    }
-    
+  //const {id,courseid } = req.body
+  const course = await  Course.find({_id: courseid})
+  console.log(course)
+  if (course) {
+    const trainee = await CorporateTrainee.findOneAndUpdate({_id:id},{$addToSet:{requestedCourses:course}})
+    res.status(200).json(trainee)
   }
+  
+}
 
   //ViewAll requested Courses
   const allReqCourses= async(req,res)=>{
