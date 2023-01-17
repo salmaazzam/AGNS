@@ -4,10 +4,10 @@ const mongoose = require('mongoose')
 
 //inserting a new report will be used by user
 const addReport= async (req, res) => {
-    const {type, problem,userID,course, courseid} = req.body
-    console.log(userName)
+    const {_id}= req.user._id
+    const {type, problem,CID} = req.body
     try {
-        const report = await Report.create({ problem,type, userID, course, courseid })
+        const report = await Report.create({ problem,type, userID:_id, courseid:CID })
         res.status(200).json(report)
       } catch (error) {
         res.status(400).json({ error: error.message })

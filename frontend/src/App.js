@@ -40,6 +40,7 @@ import PayForCourse from './pages/PayForCourse'
 import CorporateHome from './pages/CorporateHome';
 import PopularCoursesCorp from './pages/PopularCourseCorp'
 import SearchPageCorp from './pages/SearchPageCorp';
+import AdminReports from './pages/AdminReports';
 
 
 function App() {
@@ -198,6 +199,10 @@ function App() {
           <Route 
             path="/searchPageCorp"
             element={<SearchPageCorp/>}
+          />
+          <Route 
+            path="/admin/reports"
+            element={<AdminReports/>}
           />
           
         </Routes>

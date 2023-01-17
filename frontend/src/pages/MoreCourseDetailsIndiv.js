@@ -34,7 +34,9 @@ const MoreCourseDetailsIndiv=()=>{
     Navigate('/individual')
 };
 const Report = () =>{
-    Navigate('/submitreport')
+    Navigate('/submitreport',{state:{
+        id:courseID}
+      })
 };
 
 const Exercise = ()=>{

@@ -22,10 +22,6 @@ const ReportSchema = new Schema({
         type:String,
         required:true
     },
-    course:{
-        type:String,
-        required:true
-    },
     courseid:{
         type:String,
         required:true

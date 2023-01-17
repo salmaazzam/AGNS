@@ -7,8 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 //const {type, problem,userID,course, courseid} = req.body
 const SubmitReport =()=>{
+    const curruser = JSON.parse(localStorage.getItem('user'))
+    const token = curruser.token
     const Navigate = useNavigate();
-
     const location = useLocation()
 
     const [TypeSet, setType]= useState('');
@@ -16,24 +17,21 @@ const SubmitReport =()=>{
     const goBack = async (e) =>{
         Navigate('/individual')
     }
+
     const submitReport = async (e) =>{
-        // setType(document.getElementById("select_id").value)
-         console.log(TypeSet)
+        e.preventDefault();
+        console.log(location.state.id)
+        console.log(Problem)
+        console.log(TypeSet)
+        Axios.post("/report/indiv",{
+            CID: location.state.id,
+            problem:Problem,
+            type:TypeSet
+        },{
+            headers: { Authorization: `Bearer ${token}`}
+        }).then(report=>console.log(report))
     }
-    function handleSelectChange(event) {
-        event.preventDefault();
-        // if you want to support some really old IEs, add
-        // event = event || window.event;
-    
-       setType(event.target);
-    
-       // var value = selectElement.value;
-        // to support really old browsers, you may use
-        // selectElement.value || selectElement.options[selectElement.selectedIndex].value;
-        // like el Dude has suggested
-    
-        // do whatever you want with value
-    }
+
 
     return(
         <div>
@@ -41,17 +39,17 @@ const SubmitReport =()=>{
             <label>Type of the problem</label>
             <br/>
 
-            <select name="Type" id="Type"  onchange="handleSelectChange(event)">
-                <option value="Technical">Technical</option>
-                 <option value="Financial">Financial</option>
-                 <option value="Other">Other</option>
-             </select>
+            <select name="correctanswer" id="correctanswer"  
+                value={TypeSet} onChange={(e) => setType(e.target.value)}>
+                    <option value="technical">technical</option>
+                    <option value="financial">financial</option>
+                    <option value="other">other</option>
+                </select>
               
 
             <label>What is the problem?</label>
             <input type="text"  value={Problem} onChange={(e) => setProblem(e.target.value)}></input>
             <button type = "button" onClick={submitReport}>Submit</button>
-
             &nbsp;&nbsp;
         <button type = "button" onClick={goBack}>Back</button>
 
