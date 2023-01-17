@@ -37,6 +37,8 @@ import Subtitles from './pages/Subtitles';
 import SearchPageUser from './pages/SearchPageUser';
 import OneCourseUser from './pages/OneCourseUser';
 import PayForCourse from './pages/PayForCourse'
+import CorporateHome from './pages/CorporateHome';
+
 
 function App() {
   return (
@@ -182,6 +184,10 @@ function App() {
           <Route 
             path="/register"
             element={<PayForCourse />}
+          />
+          <Route 
+            path="/corporate"
+            element={<CorporateHome />}
           />
           
         </Routes>

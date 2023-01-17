@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer")
 require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt= require('bcrypt')
-
+const Admin=require('../Models/AdminSchema')
 const User = require('../Models/IndividualTraineeSchema')
 const Instructor = require('../Models/InstructorSchema') 
 const Trainee = require('../Models/CorporateTraineeSchema')
@@ -16,13 +16,78 @@ const loginUser = async(req, res) => {
     const {username, password}= req.body
 
     try{
-      const user= await User.login(username, password) 
+      if(!username || !password){
+        throw Error("All fields must be filled")
+      }
+
+      const instructor = await Instructor.findOne({username:username})
+      if(instructor){ //username in instructor
+        const match= await bcrypt.compare(password, instructor.password) 
+        if(!match){
+          throw Error("Incorrect password instructor")
+        }
+        else{
+        //create token
+        const token = createToken(instructor._id)
+        res.status(200).json({username, token})
+        }
+      }
+      else{
+        const indivTrainee =await User.findOne({username:username})
+        if(indivTrainee){ //username in instructor
+          const match= await bcrypt.compare(password, indivTrainee.password) 
+          if(!match){
+            throw Error("Incorrect password trainee")
+          }
+          else{
+          //create token
+          const token = createToken(indivTrainee._id)
+          res.status(200).json({username, token})
+          }
+        }
+        else{
+          const corpTrainee =await Trainee.findOne({username:username})
+          if(corpTrainee){ //username in corp trainee
+            const match= await bcrypt.compare(password, corpTrainee.password) 
+            if(!match){
+              throw Error("Incorrect password trainee")
+            }
+            else{
+            //create token
+            const token = createToken(corpTrainee._id)
+            res.status(200).json({username, token})          }
+          }
+          else{
+            const admin =await Admin.findOne({username:username})
+            if(admin){
+              const match= await bcrypt.compare(password, admin.password)
+              if(!match){
+                throw Error("Incorrect password admin")
+              } 
+              else{
+            //create token
+            const token = createToken(admin._id)
+            res.status(200).json({username, token})
+
+              }
+            }
+            else{
+              throw Error("Incorrect username")
+
+            }
+          }
+  
+        }
+  
+      }
+
+      //const user= await User.login(username, password) 
       
       //create token
-      const token = createToken(user._id)
+      // const token = createToken(user._id)
+      // res.status(200).json({username, token})
 
-      res.status(200).json({username, token})
-    } catch (error){
+    }catch (error){
       res.status(400).json({error: error.message})
     }
 }

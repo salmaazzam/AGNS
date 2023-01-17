@@ -55,15 +55,7 @@ const Register = ()=>{
                     headers: { Authorization: `Bearer ${token}` }
                 }).then(res=>{
                     
-                    if(myCourse)
-                    {
-                        console.log("mine")
-                        setMyCourse(res.data)
-                    }
-                    else{
-                        console.log("not mine")
-                        setMyCourse(null)
-                    }
+                   setMyCourse(res.data)
                  }).catch(err=>{
                     console.log(err)
                  })

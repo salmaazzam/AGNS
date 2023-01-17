@@ -386,50 +386,39 @@ const PopularCourses = async(req,res) => {
     res.status(200).json(popCourses)
 }
 
+
 const InMyCourses = async(req,res)=>{
   const { _id } = req.user._id
   const {CID}= req.body;
+  var result=null;
   const ct= await CorporateTrainee.findById(_id);
   if(ct){
-      //res.status(200).json("true");
       const {courses} =await CorporateTrainee.findById(_id);
-      const foundct = courses.find(item => item._id == CID)
-      res.status(200).json(foundct);
+      for(var i=0;i<courses.length;i++){
+        console.log(courses[i]._id.valueOf())
+        if(courses[i]._id.valueOf() == CID){
+          result=courses[i]
+        }
+      }
   }
   else{
-    //res.status(200).json("false");
     const it= await IndividualTrainee.findById(_id);
     if(it){
     const {courses} =await IndividualTrainee.findById(_id);
-    const foundit = courses.find(item => item._id == CID)
-    res.status(200).json(foundit);
-   }
-    else{
-      res.status(200).json(null);
-
+    console.log(courses.length)
+    for(var i=0;i<courses.length;i++){
+      console.log(courses[i]._id.valueOf())
+      if((courses[i]._id.valueOf()) == CID){
+        console.log(i +"hiiii")
+        result=courses[i]
+      }
     }
+  }
 
   }
- // console.log((courses[0]._id.valueOf()));  //returns an array
-  //const f= courses.find(item => item._id.valueOf()== CID)
-  //console.log(f)
-  //var bool = false;
-  //for(var i=0; i<courses.length;i++)
-  {
-    //if(courses[i]._id.valueOf()== CID)
-       // bool = true;
-  }
-  //if(bool)
-  {
-    //const res = courses
-  }
-  //else
-  {
-   // const res = null
-  }
-  //res.status(200).json(res);
+  res.status(200).json(result);
+ 
 }
-
 const MyProgress= async(req,res) => {
 const {_id}= req.user._id
 const {CID}= req.body

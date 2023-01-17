@@ -74,4 +74,5 @@ router.post("/getEx",requireAuthIndividual,getCurrExercise)
 
 router.post("/solve",requireAuthIndividual,SolveCurrExercise)
 
+
 module.exports = router;
