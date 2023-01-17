@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {AcceptReq,allReqCourses, getCorporateTrainees,requestCourse, getCorporateTrainee, createCorporateTrainee, deleteCorporateTrainee, updateCorporateTrainee, setCountry} = require('../Controllers/CorporateTraineeController')
-  
+const requireAuthCorporate = require("../middleware/requireAuthCorporate")
 //const CorporateTrainee = require("../Models/CorporateTraineeSchema");
 
 
@@ -21,7 +21,7 @@ router.patch("/:id", updateCorporateTrainee)
 
 router.post("/country", setCountry)
 
-router.post("/requestcourse", requestCourse)
+router.post("/requestcourse",requireAuthCorporate, requestCourse)
 
 router.post("/acceptReq",AcceptReq)
 

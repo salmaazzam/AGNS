@@ -14,7 +14,7 @@ const Login = () =>{
       {
        case 1:Navigate('/instructor');break;
        case 2:Navigate('/individual');break;
-       case 3:Navigate('/corporate');break;
+       case 3:Navigate('/corpHome');break;
        case 4:Navigate('/admin/addAdmin');break;
       }
     })

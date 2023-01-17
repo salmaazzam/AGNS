@@ -1,6 +1,6 @@
 import { useCoursesContext } from "../hooks/useCourseContext"
 import CourseDetails from '../components/CourseDetails'
-import CourseDetailsSummaryUser from '../components/CourseDetailsSummaryUser'
+import CourseDetailsSummaryCorp from '../components/CourseDetailsSummaryCorp'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
@@ -102,7 +102,7 @@ return(
         <div className='SearchResult'>
             <h1>Search Results</h1>
             {courses && courses.map(course => (
-          <CourseDetailsSummaryUser course={course} key={course._id} />
+          <CourseDetailsSummaryCorp course={course} key={course._id} />
             ))}
         </div>
         

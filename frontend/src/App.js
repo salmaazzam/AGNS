@@ -42,6 +42,7 @@ import PopularCoursesCorp from './pages/PopularCourseCorp'
 import SearchPageCorp from './pages/SearchPageCorp';
 import AdminReports from './pages/AdminReports';
 import MyReports from './pages/MyReports'
+import OneCourseCorp from './pages/OneCourseCorp'
 
 
 function App() {
@@ -208,6 +209,10 @@ function App() {
           <Route 
             path="/myReports"
             element={<MyReports/>}
+          />
+          <Route 
+            path="/oneCourseCorp"
+            element={<OneCourseCorp />}
           />
           
         </Routes>
